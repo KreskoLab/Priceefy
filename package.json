@@ -1,0 +1,27 @@
+{
+  "name": "skiku",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.4",
+    "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/sitemap": "^2.4.0",
+    "buefy": "^0.9.4",
+    "bulma": "^0.9.2",
+    "cookie-universal-nuxt": "^2.1.4",
+    "core-js": "^3.9.1",
+    "nuxt": "^2.15.4"
+  },
+  "devDependencies": {
+    "@nuxt/image": "^0.4.17",
+    "fibers": "^5.0.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^10.1.1"
+  }
+}

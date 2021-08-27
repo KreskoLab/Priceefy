@@ -1,0 +1,124 @@
+// Import Bulma and Buefy styles
+@import "~bulma/sass/utilities/_all.sass";
+
+@font-face {
+    font-family: "e-Ukraine";
+    src: local("e-Ukraine"),
+     url(~assets/e-Ukraine/e-Ukraine-Regular.woff2) format("woff2");
+}
+
+$family-primary: "e-Ukraine";
+
+//Card
+$card-radius: 0.45rem;
+$card-shadow: 0;
+
+// Set your colors
+$primary: #94C7A6;
+$primary-light: findLightColor($primary);
+$primary-dark: findDarkColor($primary);
+$primary-invert: findColorInvert($primary);
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+    (
+        "white": (
+            $white,
+            $black,
+        ),
+        "black": (
+            $black,
+            $white,
+        ),
+        "light": (
+            $light,
+            $light-invert,
+        ),
+        "dark": (
+            $dark,
+            $dark-invert,
+        ),
+        "primary": (
+            $primary,
+            $primary-invert,
+            $primary-light,
+            $primary-dark,
+        ),
+        "link": (
+            $link,
+            $link-invert,
+            $link-light,
+            $link-dark,
+        ),
+        "info": (
+            $info,
+            $info-invert,
+            $info-light,
+            $info-dark,
+        ),
+        "success": (
+            $success,
+            $success-invert,
+            $success-light,
+            $success-dark,
+        ),
+        "warning": (
+            $warning,
+            $warning-invert,
+            $warning-light,
+            $warning-dark,
+        ),
+        "danger": (
+            $danger,
+            $danger-invert,
+            $danger-light,
+            $danger-dark,
+        )
+    ),
+    $custom-colors
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+$body-background-color: #F2F2F2;
+
+$dropdown-item-active-background-color: #EFFAF3;
+$pagination-current-background-color: #EFFAF3;
+
+//Bulma
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/grid/columns.sass";
+@import "~bulma/sass/helpers/_all.sass";
+
+@import "~bulma/sass/layout/hero.sass";
+@import "~bulma/sass/layout/section.sass";
+
+@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/tag.sass";
+@import "~bulma/sass/elements/image.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/notification.sass";
+
+@import "~bulma/sass/form/_all.sass";
+
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/dropdown.sass";
+@import "~bulma/sass/components/card.sass";
+@import "~bulma/sass/components/pagination.sass";
+@import "~bulma/sass/components/level.sass";
+
+//Buefy
+@import "~buefy/src/scss/utils/_all";
+@import "~buefy/src/scss/components/_dropdown";
+@import "~buefy/src/scss/components/_collapse";
+@import "~buefy/src/scss/components/_pagination";
+@import "~buefy/src/scss/components/_radio";
+@import "~buefy/src/scss/components/_skeleton";
