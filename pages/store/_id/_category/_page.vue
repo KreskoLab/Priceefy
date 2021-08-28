@@ -1,8 +1,7 @@
 <template>
   <div class="columns is-multiline">
     <div class="column is-12">
-      <b-skeleton width="20%" v-if="$fetchState.pending" />
-      <Level :total="count" v-else />
+      <Level :total="count" :pending="$fetchState.pending" />
     </div>
 
     <div class="column is-12-mobile is-6-tablet is-4-desktop" v-for="n in 12" v-if="$fetchState.pending">

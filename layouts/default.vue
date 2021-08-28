@@ -1,22 +1,25 @@
 <template>
   <div>
     <Navbar />
-    <div class="container is-fluid mt-6">
+    <div class="container is-fluid has-margin-top-90-mobile has-margin-top-40-tablet">
       <div class="columns">
-        <Sidebar class="sidebar column is-3 mr-2 is-hidden-mobile" />
-        <b-collapse :open="false" class="is-hidden-tablet">
-          <template #trigger>
-            <b-button class="has-text-dark"
-              label="Фільтри"
-              type="is-white"
-              expanded
-            />
-          </template>
+        <Sidebar class="sidebar column is-3 mr-2 mt-3 is-hidden-mobile" />
+
+        <b-button type="is-success" :icon-right="modal ? 'close' : 'menu'" size="is-medium" class="is-hidden-tablet" id="menu" @click="modal = !modal" />
+
+        <b-modal
+          v-model="modal"
+          full-screen
+          :can-cancel="false"
+          scroll="clip"
+        >
           <Sidebar />
-        </b-collapse>
+        </b-modal>
+
         <div class="column is-9-desktop is-8-tablet">
           <Nuxt />
         </div>
+
       </div>
     </div>
   </div>
@@ -24,7 +27,12 @@
 
 <script>
 export default {
-  middleware: 'route'
+  middleware: 'route',
+  data() {
+    return {
+      modal: false
+    }
+  }
 }
 </script>
 
@@ -60,5 +68,23 @@ export default {
   &:hover {
    background: #818181;
   }
+}
+
+#menu {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  z-index: 50;
+  border-radius: 50%;
+}
+
+a {
+  color: #363636;
+}
+
+a:hover {
+  color: #94C7A6;
+  cursor: pointer;
+  text-decoration: none;
 }
 </style>

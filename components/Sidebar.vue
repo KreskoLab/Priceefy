@@ -1,5 +1,5 @@
 <template>
-  <div class="notification is-white" style="border-radius:2%">
+  <div class="notification is-white pt-3" style="border-radius:2%">
     <h2 class="is-size-5 has-text-success mb-2">Магазин</h2>
 
     <b-radio class="mb-2 is-flex" 
