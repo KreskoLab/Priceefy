@@ -73,7 +73,7 @@ export default {
 #menu {
   position: fixed;
   bottom: 70px;
-  right: 20px;
+  right: 10px;
   z-index: 50;
   border-radius: 50%;
 }

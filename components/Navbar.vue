@@ -1,13 +1,13 @@
 <template>
-  <div class="nav px-5 has-padding-top-15 has-padding-bottom-15 is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between is-align-items-center">
+  <div class="nav px-5 has-padding-top-15 has-padding-bottom-15">
     <NuxtLink class="is-inline-flex" to="/"> 
       <figure class="image is-32x32">
         <img src="/logo.svg" alt="Skiku">
       </figure>
       <p class="is-size-5 ml-2 mt-1">Skiku</p>
     </NuxtLink>
-    
-    <b-dropdown class="has-text-dark" v-model="city" aria-role="list" position="is-bottom-left" :append-to-body="true" :mobile-modal="false"> 
+
+    <b-dropdown class="has-text-dark is-pulled-right" v-model="city" aria-role="list" position="is-bottom-left" :mobile-modal="false"> 
       <div class="is-clickable is-unselectable" slot="trigger" role="button">
         <b-icon icon="map-marker" />
         <span>{{city}}</span>
@@ -16,6 +16,7 @@
         {{item}}
       </b-dropdown-item>
     </b-dropdown>
+
   </div>
 </template>
 
@@ -57,6 +58,9 @@ export default {
 .dropdown-item{padding:.375rem 1rem;padding-right:3rem;white-space:nowrap}
 
 .nav {
+  position: relative;
+  width: 100%;
+  z-index: 4;
   top: 0;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);

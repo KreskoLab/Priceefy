@@ -1,34 +1,30 @@
 <template>
-  <section class="section pt-0 pb-6">
-    <div class="columns mt-5">
-      <div class="column is-offset-one-fifth is-three-fifths notification is-white p-5">
-        <template v-if="$fetchState.pending">
-          <b-skeleton height="500px" />
-        </template>
+  <div class="column is-12-mobile is-offset-one-fifth-tablet is-three-fifths-tablet notification is-white">
+    <template v-if="$fetchState.pending">
+      <b-skeleton height="500px" />
+    </template>
 
-        <template v-else>
-          <h1 class="is-size-4 has-text-dark has-text-centered mb-2">{{good.title}}</h1>
+    <template v-else>
+      <h1 class="is-size-4 has-text-dark has-text-centered mb-2">{{good.title}}</h1>
 
-          <div class="has-text-centered">
-            <nuxt-picture :src="good.img" format="webp" width="300" height="300" :alt="good.title" />
-          </div>
-          
-          <div v-if="good.country || good.producer">
-            <Info :info="good" />
-          </div>
-
-          <div class="is-flex is-align-items-center mt-4">
-            <b-icon icon="tag-outline" />
-            <h2 class="is-size-5 has-text-dark has-text-weight-medium ml-2">Ціни</h2>
-          </div>
-
-          <div v-for="(price,i) in pricesSort" :key="price.i">  
-            <Prices :item="price" />
-          </div>
-        </template>
+      <div class="has-text-centered">
+        <nuxt-picture :src="good.img" format="webp" width="300" height="300" :alt="good.title" />
       </div>
-    </div>
-  </section>
+      
+      <div v-if="good.country || good.producer">
+        <Info :info="good" />
+      </div>
+
+      <div class="is-flex is-align-items-center mt-4">
+        <b-icon icon="tag-outline" />
+        <h2 class="is-size-5 has-text-dark has-text-weight-medium ml-2">Ціни</h2>
+      </div>
+
+      <div v-for="(price,i) in pricesSort" :key="price.i">  
+        <Prices :item="price" />
+      </div>
+    </template>
+  </div>
 </template>
 
 <script>
