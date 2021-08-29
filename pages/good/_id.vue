@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-12-mobile is-offset-one-fifth-tablet is-three-fifths-tablet notification is-white">
+  <div class="column is-12-mobile is-offset-one-fifth-tablet is-three-fifths-tablet notification is-white px-5">
     <template v-if="$fetchState.pending">
       <b-skeleton height="500px" />
     </template>
