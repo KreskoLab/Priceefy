@@ -1,5 +1,5 @@
 <template>
-  <div class="nav px-5 has-padding-top-15 has-padding-bottom-15">
+  <div class="nav px-5 has-padding-y-4">
     <NuxtLink class="is-inline-flex" to="/"> 
       <figure class="image is-32x32">
         <img src="/logo.svg" alt="Skiku">
