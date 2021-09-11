@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container is-fluid has-margin-top-90-mobile has-margin-top-40-tablet">
+    <div class="container is-fluid has-margin-top-7-mobile has-margin-top-5-tablet">
       <div class="columns">
         <Sidebar class="sidebar column is-3 mr-2 mt-3 is-hidden-mobile" />
 
@@ -16,7 +16,7 @@
           <Sidebar />
         </b-modal>
 
-        <div class="column is-9-desktop is-8-tablet">
+        <div class="column is-9-desktop is-8-tablet is-12-mobile">
           <Nuxt />
         </div>
 

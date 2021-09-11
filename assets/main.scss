@@ -115,9 +115,8 @@ $pagination-current-background-color: #EFFAF3;
 @import "~bulma/sass/components/level.sass";
 @import "~bulma/sass/components/modal.sass";
 
-//Spacing helpers
-@import "~bulma-helpers/sass/variables/_all.sass";
-@import "~bulma-helpers/sass/helpers/_all.sass";
+//Spacing helper
+@import '@/assets/spacing.sass';
 
 //Buefy
 @import "~buefy/src/scss/utils/_all";

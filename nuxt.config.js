@@ -51,20 +51,8 @@ export default {
     '/silpo/': { target: 'https://api.catalog.ecom.silpo.ua/', pathRewrite: {'^/silpo/': ''}, changeOrigin: true }
   },
 
-  // sitemap: {
-  //   hostname: 'https://skiku.online',
-  //   gzip: true,
-  //   defaults: {
-  //     changefreq: 'daily',
-  //     priority: 1,
-  //     lastmod: new Date()
-  //   },
-  //   routes: [
-  //     ''
-  //   ]
-  // },
-
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+
   }
 }
