@@ -1,9 +1,15 @@
-export const useSelectedStore = () => useState("store", () => ({}))
-export const useSelectedCategory = () => useState("category", () => ({}))
+import { City } from '~/models/city'
+import { QueryObject } from '~/models/query-object'
 
-export const useCity = () => {
-    const cookie = useCookie<object>("cityCookie", {maxAge: 2147483647})
-    cookie.value = cookie.value || { name: "Київ", slug: "kyiv" }
+export const useBottomSheet = () => useState<boolean>('bottomSheet', () => false)
 
-    return useState("city" , () => cookie.value);
+export const useCityCookie = () => {
+	const cookie = useCookie<City>('cityCookie', { maxAge: 2147483647 })
+	cookie.value = cookie.value || { name: 'Київ', slug: 'kyiv' }
+
+	return cookie.value
+}
+
+export const useQueryObject = () => {
+	return useState<QueryObject>(null)
 }
