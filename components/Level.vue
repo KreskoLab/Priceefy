@@ -1,0 +1,39 @@
+<template>
+	<div class="flex items-center justify-between w-full py-3 text-slate-200 mb-4">
+		<div>
+			<span class="font-medium text-lg">{{ count }}</span>
+			<span class="text-sm sm:text-base ml-2">товарів знайдено</span>
+		</div>
+
+		<div>
+			<svg
+				class="h-6 w-6 rotate-90 block cursor-pointer sm:hidden"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+				@click="bottomSheet = !bottomSheet"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+				/>
+			</svg>
+		</div>
+	</div>
+</template>
+
+<script
+	setup
+	lang="ts"
+>
+defineProps({
+	count: {
+		type: Number,
+		default: 0,
+	},
+})
+
+const bottomSheet = useBottomSheet()
+</script>
