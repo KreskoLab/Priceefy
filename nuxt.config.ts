@@ -1,12 +1,18 @@
-import { defineNuxtConfig } from 'nuxt3'
+import { defineNuxtConfig } from 'nuxt'
 
-// https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-    buildModules: [
-        '@nuxtjs/tailwindcss'
-    ],
+	modules: ['@nuxtjs/harlem', '@vueuse/nuxt', '@nuxtjs/tailwindcss'],
 
-    css: [
-        '@/assets/main.css'
-    ]
+	css: ['@/assets/main.css'],
+
+	builder: 'vite',
+
+	vueuse: {
+		ssrHandlers: true,
+	},
+
+	publicRuntimeConfig: {
+		baseAPI: 'https://priceefy-backend.herokuapp.com',
+		baseImages: 'https://images.priceefy.com/image',
+	},
 })
