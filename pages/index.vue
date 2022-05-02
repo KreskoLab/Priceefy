@@ -1,132 +1,124 @@
-<template>
-  <div class="w-full h-full  xl:pl-72">
+<script
+	setup
+	lang="ts"
+>
+import type { ProductsAndCount } from '~/models/products-count'
+import type { City } from '~/models/city'
+import { QueryObject } from '~/models/query-object'
+import { state, setCity } from '~/stores/main'
 
-    <Head>
-      <Title>Перегляд цін на продукти - Pricify</Title>
-    </Head>
+const router = useRouter()
 
-    <div class="flex items-center space-x-4 w-full mt-3 h-10">
+const queryObject = useQueryObject()
+queryObject.value = queryObject.value || (router.currentRoute.value.query as QueryObject)
 
-      <svg
-          class="h-6 w-6 text-slate-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-          v-if="Object.keys(store).length || Object.keys(category).length"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-      </svg>
+const city = computed(() => state.city)
+setCity(useCityCookie())
 
-      <Chip
-          :title="store.name"
-          @clear="store = {}"
-          v-if="Object.keys(store).length"
-      />
+const store = computed(() => state.store)
+const category = computed(() => state.category)
 
-      <Chip
-          :title="category.name"
-          @clear="category = {}"
-          v-if="Object.keys(category).length"
-      />
-    </div>
+const currentPage = ref<string>('')
+currentPage.value = queryObject.value.page || '1'
 
-    <div class="mb-8">
+const paramsObject = reactive({})
+Object.assign(paramsObject, queryObject.value)
 
-      <div class="w-full py-3 text-slate-200 mb-4">
-        <span class="font-medium text-lg">{{ data.count }}</span>
-        <span class="ml-2">товарів знайдено</span>
-      </div>
+const { data, refresh, pending } = await useLazyAsyncData<ProductsAndCount>('products', () =>
+	$fetch(`/api/products/${city.value.slug}`, {
+		params: paramsObject,
+	})
+)
 
-      <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 w-full h-full" v-if="!pending">
-        <Card
-            v-for="product in data.products"
-            :key="product.slug"
-            :name="product.name"
-            :image="product.image"
-            :country="product.country"
-            :weight="product.weight"
-            :unit="product.unit"
-            :trademark="product.trademark"
-            :prices="product.prices"
-        />
-      </div>
+watch(city, (val, old) => {
+	if (val.slug !== old.slug) {
+		const cityCookie = useCookie<City>('cityCookie')
+		cityCookie.value = val
 
-      <div class="mt-12 mb-4 2xl:mr-52" v-if="!pending">
-        <Pagination
-            :count="data.count"
-            :defaultPage="route.query.page"
-            query="page"
-        />
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import {useCity, useSelectedCategory, useSelectedStore} from "~/composables/states";
-
-const config = useRuntimeConfig();
-const route = useRoute();
-const router = useRouter();
-
-const city = useCity();
-
-const category = useSelectedCategory();
-const store = useSelectedStore();
-
-const currentPage = useState<string>("currentPage", () => route.query.page ? String(route.query.page) : "1")
-const queries = ref<string>()
-
-const { data, refresh, pending } = await useAsyncData<object>("data", async () => {
-  return await $fetch(`${config.baseAPI}/product/city/${city.value.slug}?${queries.value}`)
-  .then(([res]: object[]) => ({
-    products: res.results,
-    count: res.count
-  }))
+		if (currentPage.value === '1') refresh()
+		else currentPage.value = '1'
+	}
 })
 
-watch(city, (val) => {
-  const cookie = useCookie<object>("cityCookie")
-  cookie.value = val
+watch(currentPage, () => updateParamsObject())
 
-  router.push({path: '/', query: {...route.query, page: "1"}})
-  if (route.query.page === "1") {
-    refresh()
-  }
+watch([store, category], ([newStore, newCategory], [oldStore, oldCategory]) => {
+	if (newStore.slug !== oldStore.slug || newCategory.slug !== oldCategory.slug) {
+		if (currentPage.value === '1') updateParamsObject()
+		else currentPage.value = '1'
+	}
 })
 
-watch(() => route.query.page, (page: string) => {
-  currentPage.value = page
+watch(paramsObject, val => {
+	router.push(`/?${new URLSearchParams(val).toString()}`)
+	refresh()
+
+	window.scrollTo(0, 0)
 })
 
-watch(() => route.query, () => {
-  queries.value = Object.keys(route.query).map((key) => `${key}=${route.query[key]}`).join('&')
-  console.log(queries.value)
-  refresh()
-})
+function updateParamsObject(): void {
+	const objectParams: QueryObject = {
+		page: currentPage.value,
+		store: store.value.slug,
+		category: category.value.slug,
+	}
 
-watch(category, (newCategory: object) => {
-  if (newCategory.slug) {
-    router.push({path: '/', query: {...route.query, page: "1", category: newCategory.slug}})
-  }
+	Object.keys(objectParams).forEach(
+		key => objectParams[key] === undefined && delete objectParams[key]
+	)
 
-  else {
-    let newQuery = Object.assign({}, route.query);
-    delete newQuery.category
-    router.push({path: '/', query: {...newQuery, page: "1"}})
-  }
-}, { deep: true })
+	Object.keys(paramsObject).forEach(key => delete paramsObject[key])
+	Object.assign(paramsObject, objectParams)
 
-watch(store, (newStore: object) => {
-  if (newStore.slug) {
-    router.push({path: '/', query: {...route.query, page: "1", store: newStore.slug}})
-  }
-
-  else {
-    let newQuery = Object.assign({}, route.query);
-    delete newQuery.store
-    router.push({path: '/', query: {...newQuery, page: "1"}})
-  }
-}, { deep: true })
+	queryObject.value = objectParams
+}
 </script>
+
+<template>
+	<div class="h-full px-6 sm:px-0 xl:pl-80">
+		<Head>
+			<Title>Перегляд цін на продукти - Priceefy</Title>
+		</Head>
+
+		<div class="mb-8">
+			<FiltersBar />
+
+			<Level
+				v-if="!pending"
+				id="products"
+				:count="data.count"
+			/>
+
+			<SkeletonLevel v-else />
+
+			<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 w-full h-full">
+				<template v-if="!pending">
+					<NuxtLink
+						v-for="product in data.products"
+						:key="product.slug"
+						:to="`/${product.slug}`"
+					>
+						<Card :product="product" />
+					</NuxtLink>
+				</template>
+
+				<template v-else>
+					<SkeletonCard
+						v-for="n in 30"
+						:key="n"
+					/>
+				</template>
+			</div>
+
+			<div class="mt-12 mb-4 2xl:mr-52">
+				<Pagination
+					v-if="!pending"
+					:count="data.count"
+					:per-page="30"
+					:page="Number(currentPage)"
+					@update-page="currentPage = $event"
+				/>
+			</div>
+		</div>
+	</div>
+</template>
