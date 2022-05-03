@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-	modules: ['@nuxtjs/harlem', '@vueuse/nuxt', '@nuxtjs/tailwindcss'],
+	modules: ['@pinia/nuxt', '@vueuse/nuxt', '@nuxtjs/tailwindcss'],
 
 	css: ['@/assets/main.css'],
 
