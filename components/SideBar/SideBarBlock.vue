@@ -58,12 +58,12 @@ function select(item: Store | Category) {
 }
 
 function unSelect() {
-	Object.keys(selected).forEach((key) => delete selected[key])
+	Object.keys(selected).forEach(key => delete selected[key])
 }
 
 watch(
 	() => props.modelValue,
-	(val) => {
+	val => {
 		if (Object.keys(val).length === 0) unSelect()
 		else Object.assign(selected, val)
 	},

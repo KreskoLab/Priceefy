@@ -6,7 +6,7 @@
 			<SideBarBlock
 				v-model="store"
 				title="Магазини"
-				:items="availableStores"
+				:items="piniaStore.availableStores"
 			/>
 
 			<SideBarBlock
@@ -24,18 +24,19 @@
 >
 import type { Category } from '~/models/category'
 import type { Store } from '~/models/store'
-import { state, setCategory, setStore, setStores, availableStores } from '~/stores/main'
+import { useStore } from '~/stores/main'
 
+const piniaStore = useStore()
 const queryObject = useQueryObject()
 
 const category = computed({
-	get: () => state.category,
-	set: (value: Category) => setCategory(value),
+	get: () => piniaStore.category,
+	set: (value: Category) => piniaStore.setCategory(value),
 })
 
 const store = computed({
-	get: () => state.store,
-	set: (value: Store) => setStore(value),
+	get: () => piniaStore.store,
+	set: (value: Store) => piniaStore.setStore(value),
 })
 
 const [{ data: stores }, { data: categories }] = await Promise.all([
@@ -43,9 +44,9 @@ const [{ data: stores }, { data: categories }] = await Promise.all([
 	useFetch<Category[]>('/api/categories'),
 ])
 
-setStores(stores.value)
+piniaStore.setStores(stores.value)
 
-store.value = findItemBySlug(availableStores.value, queryObject.value.store) || store.value
+store.value = findItemBySlug(piniaStore.availableStores, queryObject.value.store) || store.value
 category.value = findItemBySlug(categories.value, queryObject.value.category) || category.value
 
 function findItemBySlug(arr: (Store | Category)[], slug: string): Store | Category {

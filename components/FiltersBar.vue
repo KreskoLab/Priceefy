@@ -17,13 +17,13 @@
 
 		<Chip
 			:title="store.name"
-			@clear="setStore({} as Store)"
+			@clear="piniaStore.setStore({} as Store)"
 			v-if="Object.keys(store).length"
 		/>
 
 		<Chip
 			:title="category.name"
-			@clear="setCategory({} as Category)"
+			@clear="piniaStore.setCategory({} as Category)"
 			v-if="Object.keys(category).length"
 		/>
 	</div>
@@ -33,10 +33,12 @@
 	setup
 	lang="ts"
 >
-import { state, setStore, setCategory } from '~/stores/main'
 import type { Category } from '~/models/category'
 import type { Store } from '~/models/store'
+import { useStore } from '~/stores/main'
 
-const category = computed(() => state.category)
-const store = computed(() => state.store)
+const piniaStore = useStore()
+
+const category = computed(() => piniaStore.category)
+const store = computed(() => piniaStore.store)
 </script>

@@ -69,15 +69,16 @@
 >
 import { City } from '~/models/city'
 import { DropdownOption } from '~/models/dropdown-option'
-import { state, setCity } from '~/stores/main'
+import { useStore } from '~/stores/main'
 
+const piniaStore = useStore()
 const config = useRuntimeConfig()
 
 const showMobileSearch = useState<boolean>('mobileSearch', () => false)
 
 const city = computed({
-	get: () => state.city,
-	set: (value: City) => setCity(value),
+	get: () => piniaStore.city,
+	set: (value: City) => piniaStore.setCity(value),
 })
 
 const { data: cities } = await useAsyncData('cities', async () => {

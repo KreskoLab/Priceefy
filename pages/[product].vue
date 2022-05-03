@@ -4,18 +4,19 @@
 >
 import type { Product } from '@/models/product'
 import type { Badge } from '@/models/badge'
-import { state, setCity } from '@/stores/main'
+import { useStore } from '~/stores/main'
 
+const piniaStore = useStore()
 const config = useRuntimeConfig()
 const route = useRoute()
 
 const queryObject = useQueryObject()
 
-const city = computed(() => state.city)
-setCity(useCityCookie())
+const city = piniaStore.city
+piniaStore.setCity(useCityCookie())
 
 const { data: product, pending } = await useFetch<Product>(
-	`/api/product/${route.params.product}?city=${city.value.slug}`
+	`/api/product/${route.params.product}?city=${city.slug}`
 )
 
 const information = computed<Badge[]>(() => {

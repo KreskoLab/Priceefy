@@ -5,18 +5,19 @@
 import type { ProductsAndCount } from '~/models/products-count'
 import type { City } from '~/models/city'
 import { QueryObject } from '~/models/query-object'
-import { state, setCity } from '~/stores/main'
+import { useStore } from '~/stores/main'
 
+const piniaStore = useStore()
 const router = useRouter()
 
 const queryObject = useQueryObject()
 queryObject.value = queryObject.value || (router.currentRoute.value.query as QueryObject)
 
-const city = computed(() => state.city)
-setCity(useCityCookie())
+const city = computed(() => piniaStore.city)
+piniaStore.setCity(useCityCookie())
 
-const store = computed(() => state.store)
-const category = computed(() => state.category)
+const store = computed(() => piniaStore.store)
+const category = computed(() => piniaStore.category)
 
 const currentPage = ref<string>('')
 currentPage.value = queryObject.value.page || '1'
