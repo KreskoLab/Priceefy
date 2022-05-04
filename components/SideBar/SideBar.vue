@@ -1,8 +1,8 @@
 <template>
 	<aside
-		class="block h-4/5 overflow-y-auto xl:fixed xl:h-[90%] xl:top-20 xl:ml-6 xl:pb-10 xl:invisible scrollbox"
+		class="block h-full overflow-y-auto lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 lg:invisible scrollbox"
 	>
-		<div class="w-full px-3 xl:w-72 scrollbox-content">
+		<div class="w-full px-3 lg:w-72 scrollbox-content">
 			<SideBarBlock
 				v-model="store"
 				title="Магазини"
