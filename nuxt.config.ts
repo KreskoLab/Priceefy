@@ -15,4 +15,10 @@ export default defineNuxtConfig({
 		baseAPI: 'https://priceefy-backend.herokuapp.com',
 		baseImages: 'https://images.priceefy.com/image',
 	},
+
+	meta: {
+		htmlAttrs: {
+			lang: 'uk',
+		},
+	},
 })
