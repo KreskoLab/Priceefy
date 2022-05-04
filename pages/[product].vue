@@ -55,6 +55,18 @@ function close() {
 
 <template>
 	<div class="w-full h-full">
+		<Head>
+			<Title>{{ product.name }} - Priceefy</Title>
+			<Meta
+				name="description"
+				:content="`${product.name} ціни та акції - priceefy.com`"
+			/>
+			<Meta
+				name="keywords"
+				:content="`${product.name}, ${product.trademark}, ${product.name} ціна, ${product.name} акції,`"
+			/>
+		</Head>
+
 		<div
 			class="relative flex flex-col lg:mt-12 lg:flex-row space-y-5 lg:space-x-20 lg:py-14 w-full md:w-10/12 mx-auto md:px-6 rounded-xl border-0 md:border-8 border-slate-800"
 		>
