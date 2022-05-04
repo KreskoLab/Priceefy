@@ -1,7 +1,7 @@
 <template>
 	<div
 		v-if="showBottomSheet"
-		class="absolute w-full h-full z-50 top-0 overflow-hidden bg-white/5 backdrop-blur-md"
+		class="fixed w-full h-screen z-50 top-0 overflow-hidden bg-white/5 backdrop-blur-md"
 	>
 		<Transition
 			enter-active-class="animate__animated animate__faster animate__slideInUp"
@@ -14,7 +14,7 @@
 			<div
 				v-if="show"
 				ref="sheetBody"
-				class="flex flex-col space-y-6 rounded-t-3xl bg-slate-900 mt-32 pt-8 px-6 h-[99%]"
+				class="flex flex-col space-y-6 rounded-t-3xl bg-slate-900 mt-32 pt-8 px-6 h-[calc(100%-8rem)]"
 				:style="height > 0 ? `margin-top: ${height}px` : ''"
 			>
 				<div
