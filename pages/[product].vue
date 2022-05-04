@@ -13,11 +13,9 @@ const route = useRoute()
 const queryObject = useQueryObject()
 piniaStore.setCity(useCityCookie())
 
-const { data: product } = await useAsyncData<Product>('product', () =>
-	$fetch(`/api/product/${route.params.product}`, {
-		params: { city: useCityCookie().slug },
-	})
-)
+const { data: product } = await useFetch<Product>(`/api/product/${route.params.product}`, {
+	params: { city: useCityCookie().slug },
+})
 
 const information = computed<Badge[]>(() => {
 	const items = []
