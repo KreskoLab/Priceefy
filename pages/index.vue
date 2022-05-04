@@ -6,6 +6,8 @@ import type { ProductsAndCount } from '~/models/products-count'
 import type { City } from '~/models/city'
 import { QueryObject } from '~/models/query-object'
 import { useStore } from '~/stores/main'
+import { Store } from '~~/models/store'
+import { Category } from '~~/models/category'
 
 const piniaStore = useStore()
 const router = useRouter()
@@ -16,8 +18,8 @@ queryObject.value = queryObject.value || (router.currentRoute.value.query as Que
 const city = computed(() => piniaStore.city)
 piniaStore.setCity(useCityCookie())
 
-const store = computed(() => piniaStore.store)
-const category = computed(() => piniaStore.category)
+const store = computed<Store>(() => piniaStore.store)
+const category = computed<Category>(() => piniaStore.category)
 
 const currentPage = ref<string>('')
 currentPage.value = queryObject.value.page || '1'
@@ -45,11 +47,9 @@ watch(currentPage, () => updateParamsObject())
 
 watch(
 	[store, category],
-	([newStore, newCategory], [oldStore, oldCategory]) => {
-		if (newStore.slug !== oldStore.slug || newCategory.slug !== oldCategory.slug) {
-			if (currentPage.value === '1') updateParamsObject()
-			else currentPage.value = '1'
-		}
+	() => {
+		if (currentPage.value === '1') updateParamsObject()
+		else currentPage.value = '1'
 	},
 	{ deep: true }
 )
@@ -115,7 +115,7 @@ function updateParamsObject(): void {
 				</template>
 			</div>
 
-			<div class="mt-12 mb-4 lg:mr-52">
+			<div class="mt-12 mb-4 xl:mr-52">
 				<Pagination
 					v-if="!pending"
 					:count="data.count"
