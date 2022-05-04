@@ -80,7 +80,7 @@ function updateParamsObject(): void {
 </script>
 
 <template>
-	<div class="h-full px-6 sm:px-0 xl:pl-80">
+	<div class="h-full px-6 sm:px-0 lg:pl-80">
 		<Head>
 			<Title>Перегляд цін на продукти - Priceefy</Title>
 		</Head>
@@ -115,7 +115,7 @@ function updateParamsObject(): void {
 				</template>
 			</div>
 
-			<div class="mt-12 mb-4 2xl:mr-52">
+			<div class="mt-12 mb-4 lg:mr-52">
 				<Pagination
 					v-if="!pending"
 					:count="data.count"
