@@ -43,12 +43,16 @@ watch(city, (val, old) => {
 
 watch(currentPage, () => updateParamsObject())
 
-watch([store, category], ([newStore, newCategory], [oldStore, oldCategory]) => {
-	if (newStore.slug !== oldStore.slug || newCategory.slug !== oldCategory.slug) {
-		if (currentPage.value === '1') updateParamsObject()
-		else currentPage.value = '1'
-	}
-})
+watch(
+	[store, category],
+	([newStore, newCategory], [oldStore, oldCategory]) => {
+		if (newStore.slug !== oldStore.slug || newCategory.slug !== oldCategory.slug) {
+			if (currentPage.value === '1') updateParamsObject()
+			else currentPage.value = '1'
+		}
+	},
+	{ deep: true }
+)
 
 watch(paramsObject, val => {
 	router.push(`/?${new URLSearchParams(val).toString()}`)
