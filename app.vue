@@ -11,17 +11,17 @@ watch(showBottomSheet, val => {
 </script>
 
 <template>
-	<div class="h-full overflow-y-auto bg-slate-900">
+	<div class="min-h-screen overflow-y-auto bg-slate-900">
 		<NavBar />
 
 		<BottomSheet />
 
-		<div class="container h-full mx-auto">
+		<div class="container mx-auto">
 			<div class="hidden lg:block">
 				<SideBar v-if="$route.name !== 'product'" />
 			</div>
 
-			<main class="pt-[4.5rem] h-full lg:px-8 lg:pt-24">
+			<main class="pt-[4.5rem] lg:px-8 lg:pt-24">
 				<NuxtPage />
 			</main>
 		</div>

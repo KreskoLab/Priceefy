@@ -52,9 +52,9 @@ function close() {
 </script>
 
 <template>
-	<div class="w-full h-screen">
+	<div class="w-full h-full">
 		<div
-			class="relative flex flex-col lg:mt-12 lg:flex-row space-y-4 lg:space-x-20 w-full md:w-10/12 mx-auto py-2 lg:py-14 md:px-6 rounded-xl border-0 md:border-8 border-slate-800"
+			class="relative flex flex-col lg:mt-12 lg:flex-row space-y-5 lg:space-x-20 lg:py-14 w-full md:w-10/12 mx-auto md:px-6 rounded-xl border-0 md:border-8 border-slate-800"
 		>
 			<button
 				class="absolute top-0 right-0 text-slate-200 p-6"
@@ -74,7 +74,7 @@ function close() {
 				</svg>
 			</button>
 
-			<h1 class="text-xl text-slate-200 block px-8 pt-4 md:hidden">
+			<h1 class="text-xl text-slate-200 block px-8 md:hidden">
 				{{ product.name }}
 			</h1>
 
