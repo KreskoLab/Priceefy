@@ -38,10 +38,12 @@ const information = computed<Badge[]>(() => {
 })
 
 const prices = computed<Badge[]>(() => {
-	return product.value.prices.map(item => ({
-		header: item.store,
-		text: `${item.price.toFixed(2)} ₴`,
-	}))
+	return product.value.prices
+		.sort((a, b) => a.price - b.price)
+		.map(item => ({
+			header: item.store,
+			text: `${item.price.toFixed(2)} ₴`,
+		}))
 })
 
 function close() {
