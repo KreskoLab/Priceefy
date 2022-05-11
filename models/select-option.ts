@@ -1,6 +1,6 @@
 import type { City } from '~/models/city'
 
-export type DropdownOption = {
+export type SelectOption = {
 	title: string
 	value: City
 }
