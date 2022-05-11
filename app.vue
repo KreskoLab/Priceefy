@@ -2,7 +2,12 @@
 	setup
 	lang="ts"
 >
+import { useUser } from '~/stores/user'
+
 const showBottomSheet = useBottomSheet()
+const userStore = useUser()
+
+userStore.getUser()
 
 watch(showBottomSheet, val => {
 	if (val) document.body.classList.add('overflow-y-hidden')
@@ -18,7 +23,7 @@ watch(showBottomSheet, val => {
 
 		<div class="container mx-auto">
 			<div class="hidden lg:block">
-				<SideBar v-if="$route.name !== 'product'" />
+				<SideBar v-if="$route.name !== 'callback' && $route.name !== 'product-product'" />
 			</div>
 
 			<main class="pt-[4.5rem] lg:px-8 lg:pt-24">

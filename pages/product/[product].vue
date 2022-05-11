@@ -9,6 +9,7 @@ import { useStore } from '~/stores/main'
 const piniaStore = useStore()
 const config = useRuntimeConfig()
 const route = useRoute()
+const router = useRouter()
 
 const queryObject = useQueryObject()
 piniaStore.setCity(useCityCookie())
@@ -46,7 +47,7 @@ const prices = computed<Badge[]>(() => {
 
 function close() {
 	if (queryObject.value) {
-		return navigateTo({ path: '/', query: queryObject.value })
+		return router.go(-1)
 	} else return navigateTo({ path: '/', query: { page: '1' } })
 }
 </script>

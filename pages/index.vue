@@ -109,7 +109,7 @@ function updateParamsObject(): void {
 					<NuxtLink
 						v-for="product in data.products"
 						:key="product.slug"
-						:to="`/${product.slug}`"
+						:to="`/product/${product.slug}`"
 					>
 						<Card :product="product" />
 					</NuxtLink>
