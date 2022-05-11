@@ -7,7 +7,7 @@
 				<SearchInput />
 			</div>
 
-			<div class="flex space-x-4">
+			<div class="flex items-center space-x-4">
 				<div class="sm:hidden">
 					<svg
 						class="h-6 w-6 text-slate-400"
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 
-				<DropDown
+				<UiSelect
 					v-model="city"
 					:options="cities"
 					:default-option="defaultOption"
@@ -57,7 +57,53 @@
 							/>
 						</svg>
 					</template>
-				</DropDown>
+				</UiSelect>
+
+				<NuxtLink
+					to="http://localhost:8000/users/auth/google"
+					v-if="!userStore.loggedIn"
+				>
+					<svg
+						class="h-6 w-6 text-slate-200"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+				</NuxtLink>
+
+				<Dropdown v-else>
+					<template #header>
+						<div class="w-10 h-10">
+							<img
+								class="object-cover rounded-lg"
+								:src="user.avatar"
+								alt="user avatar"
+							/>
+						</div>
+
+						<svg
+							class="h-5 w-5 text-slate-300"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+					</template>
+
+					<DropdownItem>Обранні</DropdownItem>
+					<DropdownItem @click="userStore.logOut()">Вийти</DropdownItem>
+				</Dropdown>
 			</div>
 		</div>
 	</div>
@@ -68,8 +114,12 @@
 	lang="ts"
 >
 import { City } from '~/models/city'
-import { DropdownOption } from '~/models/dropdown-option'
+import { SelectOption } from '~/models/select-option'
 import { useStore } from '~/stores/main'
+import { useUser } from '~/stores/user'
+
+const userStore = useUser()
+const user = userStore.user
 
 const piniaStore = useStore()
 const config = useRuntimeConfig()
@@ -84,9 +134,9 @@ const city = computed({
 const { data: cities } = await useAsyncData('cities', async () => {
 	const res: City[] = await $fetch(`${config.baseAPI}/store/cities`)
 
-	const options: DropdownOption[] = res.map(city => ({ title: city.name, value: city }))
+	const options: SelectOption[] = res.map(city => ({ title: city.name, value: city }))
 	return options
 })
 
-const defaultOption: DropdownOption = cities.value.find(item => item.value.slug === city.value.slug)
+const defaultOption: SelectOption = cities.value.find(item => item.value.slug === city.value.slug)
 </script>
