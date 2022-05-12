@@ -6,24 +6,37 @@
 	setup
 	lang="ts"
 >
-import { useUser } from '~/stores/user'
+import { User } from '~~/models/user'
+
 const route = useRoute()
 const router = useRouter()
 
 const token = route.query.accessToken ? route.query.accessToken : ''
+const userStore = useUser()
 
-if (token.length) {
-	const cookie = useCookie<string>('accessToken', {
-		httpOnly: true,
-		sameSite: 'strict',
-		domain: 'localhost',
-		maxAge: 604800,
+const cookie = useCookie<string>('accessToken', {
+	httpOnly: true,
+	sameSite: 'strict',
+	domain: 'localhost',
+	maxAge: 604800,
+})
+
+cookie.value = token as string
+
+onMounted(async () => {
+	const res = await $fetch('/api/user', {
+		headers: useRequestHeaders(['cookie']),
+		credentials: 'include',
 	})
-	cookie.value = token as string
-}
 
-onMounted(() => {
-	useUser().getUser()
+	if (res.status) {
+		userStore.value.user = res.user
+		userStore.value.loggedIn = true
+	} else {
+		userStore.value.user = {} as User
+		userStore.value.loggedIn = false
+	}
+
 	router.push('/')
 })
 </script>
