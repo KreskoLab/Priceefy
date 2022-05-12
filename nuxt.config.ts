@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-	modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt'],
+	modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', '@nuxtjs/color-mode'],
 
 	css: ['@/assets/main.css'],
 
@@ -9,6 +9,10 @@ export default defineNuxtConfig({
 
 	vueuse: {
 		ssrHandlers: true,
+	},
+
+	colorMode: {
+		classSuffix: '',
 	},
 
 	publicRuntimeConfig: {
