@@ -1,7 +1,7 @@
 <template>
 	<div class="flex items-center space-x-4 w-full mt-3 h-10">
 		<svg
-			class="h-6 w-6 text-slate-400"
+			class="h-6 w-6 dark:text-slate-400 text-gray-600"
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"

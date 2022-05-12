@@ -1,22 +1,21 @@
 <template>
-	<div class="flex relative w-full">
+	<div class="flex relative w-max">
 		<button
 			ref="dropdown"
-			class="flex items-center space-x-2 outline-none"
+			class="flex items-center space-x-2 outline-none py-1 px-2 dark:bg-slate-800/90 bg-gray-100 border-t dark:border-t-slate-700 border-t-gray-200 rounded-full text-center"
 			@click="active = !active"
 		>
-			<slot name="icon" />
-			<span class="text-slate-300 text-left w-16">{{ selected.title }}</span>
+			<span class="dark:text-slate-300 text-gray-600 text-sm w-16">{{ selected.title }}</span>
 		</button>
 
 		<ul
 			v-if="active"
-			class="absolute top-full -right-1 w-max bg-slate-800 border-t border-t-slate-700 shadow-md rounded-lg text-slate-300 py-2 mt-2"
+			class="absolute top-full -left-1 w-max dark:bg-slate-800 bg-white border-t dark:border-t-slate-700 border-t-gray-200 shadow-md rounded-lg dark:text-slate-300 text-gray-600 py-2 mt-2"
 		>
 			<li
 				v-for="option in options"
 				:key="option.title"
-				class="pl-4 pr-10 py-1 transition duration-100 ease-in-out hover:bg-slate-600/30 hover:text-slate-200 hover:cursor-pointer"
+				class="pl-4 pr-10 py-1 transition duration-100 ease-in-out dark:hover:bg-slate-600/30 hover:bg-gray-200/30 dark:hover:text-slate-200 hover:text-gray-800 hover:cursor-pointer"
 				:class="{ 'text-teal-400 hover:text-teal-400': option.title === selected.title }"
 				@click="select(option)"
 			>

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex space-x-3 rounded-3xl bg-slate-800 border border-slate-700 py-1 px-4 text-sm text-slate-300 w-max"
+		class="flex space-x-3 rounded-3xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-gray-200 py-1 px-4 text-sm dark:text-slate-300 text-gray-600 w-max"
 	>
 		<span class="select-none truncate w-16 sm:w-max">{{ title }}</span>
 		<button

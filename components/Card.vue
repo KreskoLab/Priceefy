@@ -1,25 +1,27 @@
 <template>
 	<article
-		class="flex flex-col space-y-12 w-full h-full min-w-[320px] bg-slate-800 outline outline-2 outline-slate-700 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out py-5 px-4"
+		class="flex flex-col space-y-12 w-full h-full min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out py-5 px-4"
 	>
 		<div class="flex space-x-6">
-			<div class="flex justify-center items-center shrink-0 w-24 h-24 bg-slate-700/90 rounded-md">
+			<div
+				class="flex justify-center items-center shrink-0 w-24 h-24 dark:bg-slate-700/90 rounded-md"
+			>
 				<img
 					class="h-16 w-16"
-					:src="`${config.baseImages}/f_webp,s_64x64/static/${product.image}`"
+					:src="`${config.baseImages}/f_webp,s_128x128/static/${product.image}`"
 					:alt="product.name"
 				/>
 			</div>
 
-			<div class="flex flex-col space-y-2 pt-0.5">
-				<h2 class="text-sm text-slate-200 line-clamp-3">{{ normalName }}</h2>
-				<span class="w-max bg-teal-600/40 rounded px-2 text-slate-200 tracking-wider">
+			<div class="flex flex-col space-y-2 pt-0.5 dark:text-slate-200 text-gray-800">
+				<h2 class="text-sm line-clamp-3">{{ normalName }}</h2>
+				<span class="w-max dark:bg-teal-600/40 bg-teal-200/80 rounded px-2 tracking-wider">
 					{{ normalPrice }}
 				</span>
 			</div>
 		</div>
 
-		<div class="flex space-x-6 items-center text-sm text-slate-400">
+		<div class="flex space-x-6 items-center text-sm dark:text-slate-400 text-gray-500">
 			<div class="flex min-w-max items-center space-x-2">
 				<svg
 					class="h-5 w-5"

@@ -20,8 +20,10 @@
 			</svg>
 		</button>
 
-		<div class="flex bg-slate-800 border-y-2 border-slate-700 text-slate-300 shadow py-3 px-12">
-			<div class="w-max px-2 text-slate-400">{{ page }}</div>
+		<div
+			class="flex dark:bg-slate-800 bg-white border-y-2 dark:border-slate-700 border-gray-200 dark:text-slate-300 text-gray-800 dark:shadow py-3 px-12"
+		>
+			<div class="w-max px-2 dark:text-slate-400 text-gray-600">{{ page }}</div>
 			<div class="">/</div>
 			<div class="w-max px-2">{{ pages }}</div>
 		</div>
@@ -93,16 +95,20 @@ function next() {
 <style scoped>
 .btn_arrow {
 	@apply outline-none
-  bg-slate-800
-  border-2 border-transparent border-slate-700
-  shadow
+  dark:bg-slate-800 bg-white
+  border-2 border-transparent dark:border-slate-700 border-gray-200
+  dark:shadow
   px-6
-  text-slate-300
-  transition duration-150
-  hover:bg-slate-400/20
+	transition duration-150
+  dark:text-slate-300 text-gray-500
+  dark:hover:bg-slate-400/20
+	hover:bg-gray-100
   active:border-2 active:border-teal-400
-  disabled:text-slate-600
-  disabled:hover:bg-slate-800
-  disabled:active:border-slate-700;
+  dark:disabled:text-slate-600
+  dark:disabled:hover:bg-slate-800
+  dark:disabled:active:border-slate-700
+	disabled:text-gray-300
+	disabled:active:border-gray-200
+	disabled:hover:bg-white;
 }
 </style>

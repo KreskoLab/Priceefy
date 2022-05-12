@@ -1,7 +1,17 @@
 <template>
-	<div class="fixed top-0 h-16 z-50 w-full border-b border-slate-800 bg-slate-900/75 backdrop-blur">
-		<div class="flex justify-between items-center container mx-auto px-4 sm:px-0 lg:px-8 h-full">
-			<Logo />
+	<div
+		class="fixed top-0 h-16 z-50 w-full border-b dark:border-slate-800 dark:bg-slate-900/75 bg-white/75 backdrop-blur"
+	>
+		<div class="flex justify-between items-center container mx-auto px-4 lg:px-8 h-full">
+			<div class="flex items-center space-x-4">
+				<Logo />
+
+				<UiSelect
+					v-model="city"
+					:options="cities"
+					:default-option="defaultOption"
+				/>
+			</div>
 
 			<div class="hidden sm:flex sm:grow sm:max-w-xs md:max-w-sm 2xl:max-w-xl">
 				<SearchInput />
@@ -10,7 +20,7 @@
 			<div class="flex items-center space-x-4">
 				<div class="sm:hidden">
 					<svg
-						class="h-6 w-6 text-slate-400"
+						class="h-6 w-6 dark:text-slate-400"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -26,54 +36,30 @@
 
 					<div
 						v-if="showMobileSearch"
-						class="absolute z-50 top-[60px] left-0 bg-slate-900/75 border-b border-slate-800 w-full px-3 py-4"
+						class="absolute z-50 top-[60px] left-0 dark:bg-slate-900/75 border-b dark:border-slate-800 w-full px-3 py-4"
 					>
 						<SearchInput />
 					</div>
 				</div>
 
-				<UiSelect
-					v-model="city"
-					:options="cities"
-					:default-option="defaultOption"
-				>
-					<template #icon>
-						<svg
-							class="h-6 w-6 text-slate-50"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							stroke-width="2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-							/>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-							/>
-						</svg>
-					</template>
-				</UiSelect>
+				<div class="hidden lg:block lg:!mx-8">
+					<ColorToggle />
+				</div>
 
 				<NuxtLink
 					to="http://localhost:8000/users/auth/google"
+					class="rounded-full border-[1.6px] dark:border-slate-50 border-gray-600 p-2"
 					v-if="!userStore.loggedIn"
 				>
 					<svg
-						class="h-6 w-6 text-slate-200"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
+						viewBox="0 0 20 21.9"
+						class="h-4 w-4 dark:fill-slate-300 fill-gray-600"
 					>
 						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+							d="M13.4,11.7c2.9-1.9,3.8-5.8,1.9-8.8S9.5-0.9,6.6,1S2.8,6.8,4.7,9.8c0.5,0.8,1.1,1.4,1.9,1.9
+	C2.6,13.1,0,16.9,0,21.1c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8c0-4.6,3.8-8.4,8.4-8.4s8.4,3.8,8.4,8.4c0,0.4,0.4,0.8,0.8,0.8
+	c0.4,0,0.8-0.4,0.8-0.8C20,16.9,17.4,13.1,13.4,11.7 M5.3,6.3c0-2.6,2.1-4.7,4.7-4.7s4.7,2.1,4.7,4.7s-2.1,4.7-4.7,4.7
+	C7.4,11.1,5.3,8.9,5.3,6.3"
 						/>
 					</svg>
 				</NuxtLink>
@@ -83,13 +69,13 @@
 						<div class="w-10 h-10">
 							<img
 								class="object-cover rounded-lg"
-								:src="user.avatar"
+								:src="userStore.user.avatar"
 								alt="user avatar"
 							/>
 						</div>
 
 						<svg
-							class="h-5 w-5 text-slate-300"
+							class="h-5 w-5 dark:text-slate-300"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -101,8 +87,11 @@
 						</svg>
 					</template>
 
+					<DropdownItem class="lg:hidden">
+						<div class="flex items-center justify-between">Тема <ColorToggle /></div>
+					</DropdownItem>
 					<DropdownItem>Обранні</DropdownItem>
-					<DropdownItem @click="userStore.logOut()">Вийти</DropdownItem>
+					<DropdownItem @click="logout()">Вийти</DropdownItem>
 				</Dropdown>
 			</div>
 		</div>
@@ -116,10 +105,14 @@
 import { City } from '~/models/city'
 import { SelectOption } from '~/models/select-option'
 import { useStore } from '~/stores/main'
-import { useUser } from '~/stores/user'
+
+await logIn()
 
 const userStore = useUser()
-const user = userStore.user
+
+const logout = async () => {
+	await logOut()
+}
 
 const piniaStore = useStore()
 const config = useRuntimeConfig()

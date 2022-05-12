@@ -80,7 +80,7 @@ function updateParamsObject(): void {
 </script>
 
 <template>
-	<div class="h-full px-6 sm:px-0 lg:pl-80">
+	<div class="h-full px-6 lg:px-0 lg:pl-80">
 		<Head>
 			<Title>Перегляд цін на продукти - Priceefy</Title>
 			<Meta

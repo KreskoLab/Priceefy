@@ -14,7 +14,7 @@
 			<div
 				v-if="show"
 				ref="sheetBody"
-				class="flex flex-col space-y-6 rounded-t-3xl bg-slate-900 mt-32 pt-8 px-6 h-[calc(100%-8rem)]"
+				class="flex flex-col space-y-6 rounded-t-3xl dark:bg-slate-900 bg-gray-300 mt-32 pt-8 px-6 h-[calc(100%-8rem)]"
 				:style="height > 0 ? `margin-top: ${height}px` : ''"
 			>
 				<div

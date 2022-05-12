@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center justify-between w-full py-3 text-slate-200 mb-4">
+	<div class="flex items-center justify-between w-full py-3 dark:text-slate-200 text-gray-600 mb-4">
 		<div>
 			<span class="font-medium text-lg">{{ count }}</span>
 			<span class="text-sm sm:text-base ml-2">товарів знайдено</span>
@@ -7,7 +7,7 @@
 
 		<div>
 			<svg
-				class="h-6 w-6 rotate-90 block cursor-pointer sm:hidden"
+				class="h-6 w-6 rotate-90 block cursor-pointer lg:hidden"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
