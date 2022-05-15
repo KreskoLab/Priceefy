@@ -11,5 +11,10 @@ export const useCityCookie = () => {
 }
 
 export const useQueryObject = () => {
-	return useState<QueryObject>(null)
+	const route = useRoute()
+	const state = useState<QueryObject>('query', () => null)
+
+	state.value = JSON.parse(JSON.stringify(route.query))
+
+	return state.value
 }
