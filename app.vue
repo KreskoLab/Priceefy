@@ -2,12 +2,7 @@
 	setup
 	lang="ts"
 >
-import { useUser } from '~/stores/user'
-
 const showBottomSheet = useBottomSheet()
-const userStore = useUser()
-
-userStore.getUser()
 
 watch(showBottomSheet, val => {
 	if (val) document.body.classList.add('overflow-y-hidden')
@@ -16,17 +11,23 @@ watch(showBottomSheet, val => {
 </script>
 
 <template>
-	<div class="min-h-screen overflow-y-auto bg-slate-900">
-		<NavBar />
+	<div class="min-h-screen overflow-y-auto dark:bg-slate-900 bg-gray-100">
+		<NavBar v-if="$route.name !== 'callback'" />
 
 		<BottomSheet />
 
 		<div class="container mx-auto">
 			<div class="hidden lg:block">
-				<SideBar v-if="$route.name !== 'callback' && $route.name !== 'product-product'" />
+				<SideBar
+					v-if="
+						$route.name !== 'callback' &&
+						$route.name !== 'product-product' &&
+						$route.name !== 'favorites'
+					"
+				/>
 			</div>
 
-			<main class="pt-[4.5rem] lg:px-8 lg:pt-24">
+			<main class="pt-[4rem] lg:px-8 lg:pt-24">
 				<NuxtPage />
 			</main>
 		</div>
