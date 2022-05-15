@@ -4,34 +4,40 @@
 >
 import type { ProductsAndCount } from '~/models/products-count'
 import type { City } from '~/models/city'
+import type { Store } from '~/models/store'
+import type { Category } from '~/models/category'
+import { Sort, SortVal, SORT_TITLES } from '~/models/sort'
 import { QueryObject } from '~/models/query-object'
 import { useStore } from '~/stores/main'
-import { Store } from '~~/models/store'
-import { Category } from '~~/models/category'
 
 const piniaStore = useStore()
 const router = useRouter()
-
 const queryObject = useQueryObject()
-queryObject.value = queryObject.value || (router.currentRoute.value.query as QueryObject)
+const pageLoaded = ref<boolean>(false)
 
 const city = computed(() => piniaStore.city)
 piniaStore.setCity(useCityCookie())
 
 const store = computed<Store>(() => piniaStore.store)
 const category = computed<Category>(() => piniaStore.category)
+const sort = computed<Sort>(() => piniaStore.sort)
 
 const currentPage = ref<string>('')
-currentPage.value = queryObject.value.page || '1'
+currentPage.value = queryObject.page || '1'
 
-const paramsObject = reactive({})
-Object.assign(paramsObject, queryObject.value)
+if (queryObject.sort) {
+	piniaStore.setSort({ val: queryObject.sort as SortVal, title: SORT_TITLES[queryObject.sort] })
+}
 
 const { data, refresh, pending } = await useLazyAsyncData<ProductsAndCount>('products', () =>
 	$fetch(`/api/products/${city.value.slug}`, {
-		params: paramsObject,
+		params: queryObject,
 	})
 )
+
+onMounted(() => {
+	pageLoaded.value = true
+})
 
 watch(city, (val, old) => {
 	if (val.slug !== old.slug) {
@@ -39,43 +45,44 @@ watch(city, (val, old) => {
 		cityCookie.value = val
 
 		if (currentPage.value === '1') refresh()
-		else currentPage.value = '1'
+		else {
+			if (pageLoaded.value) currentPage.value = '1'
+		}
 	}
 })
 
-watch(currentPage, () => updateParamsObject())
+watch([currentPage, sort], () => updateParamsObject())
 
 watch(
 	[store, category],
 	() => {
 		if (currentPage.value === '1') updateParamsObject()
-		else currentPage.value = '1'
+		else {
+			if (pageLoaded.value) currentPage.value = '1'
+		}
 	},
 	{ deep: true }
 )
 
-watch(paramsObject, val => {
-	router.push(`/?${new URLSearchParams(val).toString()}`)
+watch(queryObject, val => {
+	router.push({ name: 'index', query: val })
 	refresh()
 
 	window.scrollTo(0, 0)
 })
 
 function updateParamsObject(): void {
-	const objectParams: QueryObject = {
+	const newQueryObject: QueryObject = {
 		page: currentPage.value,
 		store: store.value.slug,
 		category: category.value.slug,
+		sort: sort.value.val,
 	}
 
-	Object.keys(objectParams).forEach(
-		key => objectParams[key] === undefined && delete objectParams[key]
-	)
-
-	Object.keys(paramsObject).forEach(key => delete paramsObject[key])
-	Object.assign(paramsObject, objectParams)
-
-	queryObject.value = objectParams
+	Object.keys(newQueryObject).forEach(key => {
+		if (newQueryObject[key] !== undefined) queryObject[key] = newQueryObject[key]
+		else delete queryObject[key] && delete newQueryObject[key]
+	})
 }
 </script>
 
