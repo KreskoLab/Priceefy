@@ -2,9 +2,10 @@ import type { User } from '~/models/user'
 
 export default defineEventHandler(async event => {
 	const cookies = useCookies(event)
+	const config = useRuntimeConfig()
 
 	if (cookies.accessToken) {
-		const user = await $fetch('http://localhost:8000/users/auth/me', {
+		const user = await $fetch(`${config.baseAPI}/users/auth/me`, {
 			headers: {
 				cookie: `accessToken=${cookies.accessToken}`,
 			},

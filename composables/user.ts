@@ -28,9 +28,10 @@ export const logIn = async () => {
 
 export const logOut = async () => {
 	const user = useUser()
+	const config = useRuntimeConfig()
 
 	await $fetch
-		.raw('http://localhost:8000/users/auth/logout', {
+		.raw(`${config.baseAPI}/users/auth/logout`, {
 			credentials: 'include',
 		})
 		.then(() => {
