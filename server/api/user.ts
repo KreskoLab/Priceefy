@@ -17,5 +17,5 @@ export default defineEventHandler(async event => {
 			})
 
 		return user
-	}
+	} else return { status: false, user: {} as User }
 })

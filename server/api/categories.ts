@@ -8,7 +8,7 @@ export default defineEventHandler(async () => {
 	const categories: Category[] = res.map((item: any) => ({
 		name: item.name,
 		slug: item.slug,
-		image: item.icon,
+		icon: item.icon,
 	}))
 
 	return categories

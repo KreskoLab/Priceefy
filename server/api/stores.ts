@@ -8,7 +8,7 @@ export default defineEventHandler(async () => {
 	const stores: Store[] = res.map((item: any) => ({
 		name: item.name,
 		slug: item.slug,
-		image: item.image,
+		icon: item.image,
 		cities: item.cities,
 	}))
 

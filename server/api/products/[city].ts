@@ -5,7 +5,7 @@ export default defineEventHandler(async event => {
 	const config = useRuntimeConfig()
 	const queryObject = useQuery(event)
 
-	const res = await $fetch<ProductsAndCount>(`product/city/${event.context.params.city}`, {
+	const res = await $fetch<ProductsAndCount>(`products/city/${event.context.params.city}`, {
 		params: queryObject,
 		baseURL: config.baseAPI,
 	})
