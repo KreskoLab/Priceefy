@@ -55,7 +55,7 @@ async function handleFavorite(productId: string) {
 		const httpMethod = userStore.value.user.favorites.includes(productId) ? 'delete' : 'post'
 
 		const res = await $fetch<string[]>(
-			`http://localhost:8000/users/${userStore.value.user._id}/favorite`,
+			`${config.baseAPI}/users/${userStore.value.user._id}/favorite`,
 			{
 				method: httpMethod,
 				credentials: 'include',
@@ -72,7 +72,7 @@ async function handleFavorite(productId: string) {
 }
 
 function close() {
-	if (queryObject.value) {
+	if (queryObject) {
 		return router.go(-1)
 	} else return navigateTo({ path: '/', query: { page: '1' } })
 }
