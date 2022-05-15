@@ -8,7 +8,7 @@
 			>
 				<img
 					class="h-16 w-16"
-					:src="`${config.baseImages}/f_webp,s_128x128/static/${product.image}`"
+					:src="`${config.baseImages}/products/${product.image}?width=128&height=128`"
 					:alt="product.name"
 				/>
 			</div>

@@ -13,7 +13,7 @@
 			>
 				<img
 					class="w-6 h-6 filter invert-[.60] dark:filter-none"
-					:src="`${config.baseImages}/_/static/${item.image}`"
+					:src="`${config.baseImages}/icons/${item.icon}`"
 					:alt="item.name"
 				/>
 				<span class="float-left truncate">{{ item.name }}</span>
@@ -39,7 +39,7 @@ const config = useRuntimeConfig()
 
 const selected = reactive<Store | Category>({
 	name: '',
-	image: '',
+	icon: '',
 	slug: '',
 })
 

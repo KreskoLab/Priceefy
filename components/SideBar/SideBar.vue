@@ -46,8 +46,8 @@ const [{ data: stores }, { data: categories }] = await Promise.all([
 
 piniaStore.setStores(stores.value)
 
-store.value = findItemBySlug(piniaStore.availableStores, queryObject.value.store) || store.value
-category.value = findItemBySlug(categories.value, queryObject.value.category) || category.value
+store.value = findItemBySlug(piniaStore.availableStores, queryObject.store) || store.value
+category.value = findItemBySlug(categories.value, queryObject.category) || category.value
 
 function findItemBySlug(arr: (Store | Category)[], slug: string): Store | Category {
 	const item = arr.find(item => item.slug === slug)

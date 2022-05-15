@@ -25,4 +25,10 @@ const active = ref<boolean>(false)
 const dropdown = ref<HTMLElement | null>(null)
 
 onMounted(() => onClickOutside(dropdown, () => (active.value = false)))
+
+function open() {
+	active.value = true
+}
+
+defineExpose({ open })
 </script>
