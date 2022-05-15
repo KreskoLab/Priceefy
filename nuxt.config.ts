@@ -16,8 +16,8 @@ export default defineNuxtConfig({
 	},
 
 	publicRuntimeConfig: {
-		baseAPI: 'https://priceefy-backend.herokuapp.com',
-		baseImages: 'https://images.priceefy.com/image',
+		baseAPI: process.env.API_URL,
+		baseImages: process.env.IMAGE_URL,
 	},
 
 	meta: {
