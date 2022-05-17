@@ -18,6 +18,7 @@ const userStore = useUser()
 const cookie = useCookie<string>('accessToken', {
 	httpOnly: true,
 	sameSite: 'none',
+	secure: true,
 	domain: config.domain,
 	maxAge: 604800,
 })
