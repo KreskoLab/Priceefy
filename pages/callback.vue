@@ -6,10 +6,11 @@
 	setup
 	lang="ts"
 >
-import { User } from '~~/models/user'
+import { User } from '~/models/user'
 
 const route = useRoute()
 const router = useRouter()
+const config = useRuntimeConfig()
 
 const token = route.query.accessToken ? route.query.accessToken : ''
 const userStore = useUser()
@@ -17,7 +18,7 @@ const userStore = useUser()
 const cookie = useCookie<string>('accessToken', {
 	httpOnly: true,
 	sameSite: 'strict',
-	domain: 'localhost',
+	domain: config.domain,
 	maxAge: 604800,
 })
 
