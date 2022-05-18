@@ -19,16 +19,21 @@
 import { Product } from '~/models/product'
 
 const userStore = useUser()
-const user = userStore.value.user
-const loggedIn = userStore.value.loggedIn
 const router = useRouter()
 
-const products = ref<Product[]>([])
+if (!userStore.value.loggedIn) router.push('/')
 
-onMounted(async () => {
-	products.value = await $fetch(`http://localhost:8000/users/${user._id}/favorites`, {
+const { data: products } = await useFetch<Product[]>(
+	`/api/favorites?userId=${userStore.value.user._id}`,
+	{
 		headers: useRequestHeaders(['cookie']),
-		credentials: 'include',
-	})
-})
+	}
+)
+
+watch(
+	() => userStore.value.loggedIn,
+	val => {
+		if (!val) router.push('/')
+	}
+)
 </script>
