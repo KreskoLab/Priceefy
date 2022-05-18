@@ -126,8 +126,6 @@ const userStore = useUser()
 const piniaStore = useStore()
 const config = useRuntimeConfig()
 
-await logIn()
-
 const logout = async () => {
 	await logOut()
 }

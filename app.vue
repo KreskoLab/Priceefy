@@ -2,6 +2,8 @@
 	setup
 	lang="ts"
 >
+await logIn()
+
 const showBottomSheet = useBottomSheet()
 
 watch(showBottomSheet, val => {
