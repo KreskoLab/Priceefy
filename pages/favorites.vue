@@ -40,6 +40,8 @@ const { data: products } = await useAsyncData<Product[]>(
 	}
 )
 
+console.log(products)
+
 watch(
 	() => userStore.value.loggedIn,
 	val => {
