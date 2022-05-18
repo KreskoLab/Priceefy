@@ -17,7 +17,7 @@
 				<SearchInput />
 			</div>
 
-			<div class="flex items-center space-x-4">
+			<div class="flex items-center space-x-6">
 				<div class="sm:hidden">
 					<svg
 						class="h-6 w-6 dark:text-slate-400"
@@ -90,7 +90,10 @@
 					</template>
 
 					<DropdownItem class="lg:hidden">
-						<div class="flex items-center justify-between">Тема <ColorToggle /></div>
+						<div class="flex items-center justify-between">
+							<span>Тема</span>
+							<ColorToggle />
+						</div>
 					</DropdownItem>
 
 					<DropdownItem v-if="userStore.loggedIn">
