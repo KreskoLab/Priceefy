@@ -4,24 +4,36 @@
 >
 import type { Product } from '~/models/product'
 import type { Badge } from '~/models/badge'
+import type { ChartSeries } from '~/models/chart-series'
 import { useStore } from '~/stores/main'
 
 const piniaStore = useStore()
 const userStore = useUser()
+
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
+
+const queryObject = useQueryObject()
+piniaStore.setCity(useCityCookie())
+
+const city = computed(() => piniaStore.city)
 
 const isFavorite = computed<boolean>(() => {
 	return userStore.value.loggedIn && userStore.value.user.favorites.includes(product.value._id)
 })
 
-const queryObject = useQueryObject()
-piniaStore.setCity(useCityCookie())
-
 const { data: product } = await useFetch<Product>(`/api/product/${route.params.product}`, {
-	params: { city: useCityCookie().slug },
+	params: { city: city.value.slug },
 })
+
+const { data: charts } = await useFetch<ChartSeries>(
+	`/api/product/${route.params.product}/prices`,
+	{
+		params: { city: city.value.slug, period: 'week' },
+		initialCache: false,
+	}
+)
 
 const information = computed<Badge[]>(() => {
 	const items = []
@@ -79,7 +91,7 @@ function close() {
 </script>
 
 <template>
-	<div class="w-full h-full">
+	<article>
 		<Head>
 			<Title>{{ product.name }} - Priceefy</Title>
 
@@ -95,7 +107,7 @@ function close() {
 		</Head>
 
 		<div
-			class="relative flex flex-col lg:mt-8 lg:flex-row space-y-5 lg:space-x-20 lg:py-14 w-full md:w-10/12 mx-auto md:px-6 rounded-xl border-0 md:border-8 dark:border-slate-800 border-gray-200"
+			class="relative flex flex-col lg:flex-row lg:items-center space-y-5 lg:space-x-20 lg:py-14 w-full md:w-10/12 mx-auto md:px-6 rounded-xl border-0 md:border-8 dark:border-slate-800 border-gray-200"
 		>
 			<button
 				class="absolute top-0 right-0 dark:text-slate-200 text-gray-600 p-6"
@@ -104,18 +116,19 @@ function close() {
 				<svg
 					width="24"
 					height="24"
-					fill="currentColor"
-					class="bi bi-x-circle"
-					viewBox="0 0 16 16"
+					viewBox="0 0 24 24"
+					fill="none"
+					class="w-6 h-6"
 				>
-					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
 					<path
-						d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+						data-v-314bab64=""
+						d="M12 22C17.4706 22 22 17.4706 22 12C22 6.53922 17.4608 2 11.9902 2C6.52941 2 2 6.53922 2 12C2 17.4706 6.53922 22 12 22ZM12 20.3333C7.37255 20.3333 3.67647 16.6275 3.67647 12C3.67647 7.38235 7.36274 3.66667 11.9902 3.66667C16.6176 3.66667 20.3235 7.38235 20.3333 12C20.3431 16.6275 16.6275 20.3333 12 20.3333ZM8.64706 16.1569C8.86275 16.1569 9.06863 16.0686 9.20588 15.9118L11.9902 13.1176L14.7843 15.9118C14.9314 16.0588 15.1176 16.1569 15.3431 16.1569C15.7745 16.1569 16.1275 15.7941 16.1275 15.3627C16.1275 15.1373 16.049 14.951 15.8922 14.8039L13.1078 12.0196L15.902 9.21569C16.0686 9.04902 16.1373 8.88235 16.1373 8.66667C16.1373 8.22549 15.7843 7.88235 15.3529 7.88235C15.1471 7.88235 14.9804 7.95098 14.8137 8.11765L11.9902 10.9216L9.18627 8.12745C9.04902 7.97059 8.86275 7.90196 8.64706 7.90196C8.21569 7.90196 7.86274 8.23529 7.86274 8.67647C7.86274 8.89216 7.94118 9.07843 8.09804 9.22549L10.8824 12.0196L8.09804 14.8137C7.94118 14.951 7.86274 15.1471 7.86274 15.3627C7.86274 15.7941 8.21569 16.1569 8.64706 16.1569Z"
+						fill="currentColor"
 					/>
 				</svg>
 			</button>
 
-			<h1 class="text-xl dark:text-slate-200 text-gray-800 block px-8 md:hidden">
+			<h1 class="text-xl dark:text-slate-200 text-gray-800 pl-8 pr-16 md:hidden">
 				{{ product.name }}
 			</h1>
 
@@ -123,13 +136,14 @@ function close() {
 				class="relative grid place-items-center w-full lg:w-4/12 h-1/2 dark:bg-slate-700/90 bg-white rounded-xl"
 			>
 				<img
+					class="min-h-[356px]"
 					:src="`${config.baseImages}/products/${product.image}?width=356&height=356`"
 					:alt="product.name"
 				/>
 
 				<button
 					@click="handleFavorite(product._id)"
-					class="absolute top-4 right-4 rounded-md bg-gray-100 dark:bg-gray-100 p-2 z-10 focus:outline-none"
+					class="absolute top-4 right-4 rounded-md bg-gray-100 dark:bg-slate-400 p-2 z-10 focus:outline-none"
 				>
 					<svg
 						class="h-6 w-6 dark:stroke-slate-800 stoke-gray-600"
@@ -148,7 +162,7 @@ function close() {
 				</button>
 			</div>
 
-			<div class="flex flex-col space-y-8 flex-1 px-8 py-4 md:px-0">
+			<div class="flex flex-col space-y-8 flex-1 px-8 md:px-0">
 				<h1 class="text-xl dark:text-slate-200 text-gray-800 hidden md:block">
 					{{ product.name }}
 				</h1>
@@ -168,7 +182,8 @@ function close() {
 								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 							/>
 						</svg>
-						<span class="uppercase tracking-wide text-teal-400">інформація</span>
+
+						<h2 class="uppercase tracking-wide text-teal-400">інформація</h2>
 					</div>
 
 					<div class="flex flex-row flex-wrap justify-center lg:justify-start gap-4">
@@ -196,7 +211,7 @@ function close() {
 								d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
 							/>
 						</svg>
-						<span class="uppercase tracking-wide text-teal-400">Ціни</span>
+						<h3 class="uppercase tracking-wide text-teal-400">Ціни</h3>
 					</div>
 
 					<div class="flex flex-row flex-wrap justify-center lg:justify-start gap-4">
@@ -208,7 +223,11 @@ function close() {
 						/>
 					</div>
 				</div>
+
+				<div class="w-full lg:w-4/5 lg:h-max bg-white dark:bg-slate-700/90 rounded-md">
+					<Charts :chart-series="charts" />
+				</div>
 			</div>
 		</div>
-	</div>
+	</article>
 </template>
