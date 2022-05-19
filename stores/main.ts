@@ -28,6 +28,9 @@ export const useStore = defineStore('main', {
 
 		setCity(newCity: City) {
 			this.city = newCity
+
+			const cookie = useCookie<City>('cityCookie', { maxAge: 2147483647 })
+			cookie.value = newCity
 		},
 
 		setSort(newSort: Sort) {

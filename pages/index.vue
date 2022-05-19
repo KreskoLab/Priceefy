@@ -3,7 +3,6 @@
 	lang="ts"
 >
 import type { ProductsAndCount } from '~/models/products-count'
-import type { City } from '~/models/city'
 import type { Store } from '~/models/store'
 import type { Category } from '~/models/category'
 import { Sort, SortVal, SORT_TITLES } from '~/models/sort'
@@ -41,9 +40,6 @@ onMounted(() => {
 
 watch(city, (val, old) => {
 	if (val.slug !== old.slug) {
-		const cityCookie = useCookie<City>('cityCookie')
-		cityCookie.value = val
-
 		if (currentPage.value === '1') refresh()
 		else {
 			if (pageLoaded.value) currentPage.value = '1'

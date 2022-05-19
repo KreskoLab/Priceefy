@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed top-0 h-16 z-50 w-full border-b dark:border-slate-800 dark:bg-slate-900/75 bg-white/75 backdrop-blur"
+		class="fixed top-0 h-16 z-50 w-full border-b dark:border-slate-800 dark:bg-slate-900/75 bg-white/75 border-gray-200 backdrop-blur"
 	>
 		<div class="flex justify-between items-center container mx-auto px-4 lg:px-8 h-full">
 			<div class="flex items-center space-x-4">
@@ -36,14 +36,16 @@
 
 					<div
 						v-if="showMobileSearch"
-						class="absolute z-50 top-[60px] left-0 dark:bg-slate-900/75 border-b dark:border-slate-800 w-full px-3 py-4"
+						class="absolute z-50 top-[60px] left-0 dark:bg-slate-900/70 bg-white/70 border-b border-gray-200 dark:border-slate-800 w-full px-3 py-4"
 					>
 						<SearchInput />
 					</div>
 				</div>
 
 				<div class="hidden lg:block lg:!mx-8">
-					<ColorToggle />
+					<ClientOnly>
+						<ColorToggle />
+					</ClientOnly>
 				</div>
 
 				<Dropdown ref="dropdown">
@@ -120,8 +122,8 @@
 	setup
 	lang="ts"
 >
-import { City } from '~/models/city'
-import { SelectOption } from '~/models/select-option'
+import type { City } from '~/models/city'
+import type { SelectOption } from '~/models/select-option'
 import { useStore } from '~/stores/main'
 import Dropdown from '~/components/Dropdown/Dropdown.vue'
 
