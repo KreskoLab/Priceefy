@@ -4,7 +4,7 @@
 			placeholder="Пошук"
 			ref="search"
 			autofocus
-			class="appearance-none outline-none rounded-md dark:bg-slate-700/50 bg-gray-200/50 w-full h-10 px-10 focus:ring-2 dark:focus:ring-slate-700/50 focus:ring-gray-200/50 transition duration-200 ease-in-out dark:text-slate-300 text-gray-800 dark:caret-slate-50"
+			class="appearance-none outline-none rounded-md dark:bg-slate-700/70 bg-gray-200/70 w-full h-10 px-10 focus:ring-2 dark:focus:ring-slate-700/50 focus:ring-gray-200/50 transition duration-200 ease-in-out dark:text-slate-300 text-gray-800 dark:caret-slate-50"
 		/>
 
 		<svg
