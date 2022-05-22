@@ -2,7 +2,7 @@
 	<div class="flex items-center justify-between w-full py-3 dark:text-slate-200 text-gray-600 mb-4">
 		<div>
 			<span class="font-medium text-lg">{{ count }}</span>
-			<span class="text-sm sm:text-base ml-2">товарів знайдено</span>
+			<span class="text-sm sm:text-base ml-2">товарів</span>
 		</div>
 
 		<div class="flex items-center space-x-3">
