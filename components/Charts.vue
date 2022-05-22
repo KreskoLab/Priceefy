@@ -6,10 +6,6 @@
 			:options="chartOptions"
 			:key="colorMode.value"
 		/>
-
-		<template #fallback>
-			<div class="h-72" />
-		</template>
 	</ClientOnly>
 </template>
 
