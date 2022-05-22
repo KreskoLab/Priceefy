@@ -37,10 +37,18 @@ const maxPrice = computed(() => {
 
 const chartOptions = reactive({
 	chart: {
+		id: 'price',
 		fontFamily: 'e-Ukraine',
 		width: '100%',
 		height: 'auto',
 		stacked: false,
+		redrawOnWindowResize: true,
+		events: {
+			mounted: function (chartContext, config) {
+				console.log(chartContext, config)
+				chartContext.windowResizeHandler()
+			},
+		},
 		toolbar: {
 			show: false,
 		},
@@ -114,6 +122,12 @@ const chartOptions = reactive({
 			enabled: false,
 		},
 	},
+})
+
+onMounted(() => {
+	nextTick(() => {
+		window.dispatchEvent(new Event('resize'))
+	})
 })
 
 watch(colorMode, val => {
