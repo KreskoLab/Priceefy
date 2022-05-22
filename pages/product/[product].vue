@@ -91,7 +91,9 @@ function close() {
 </script>
 
 <template>
-	<article>
+	<article
+		class="flex flex-col space-y-6 px-4 py-4 lg:px-12 lg:space-y-4 lg:w-10/12 w-full mx-auto dark:bg-slate-800 bg-white rounded-lg"
+	>
 		<Head>
 			<Title>{{ product.name }} - Priceefy</Title>
 
@@ -106,11 +108,13 @@ function close() {
 			/>
 		</Head>
 
-		<div
-			class="relative flex flex-col lg:flex-row lg:items-center space-y-5 lg:space-x-20 lg:py-14 w-full md:w-10/12 mx-auto md:px-6 rounded-xl border-0 md:border-8 dark:border-slate-800 border-gray-200"
-		>
+		<div class="flex items-center justify-between">
+			<h1 class="text-xl dark:text-slate-200 text-gray-800">
+				{{ product.name }}
+			</h1>
+
 			<button
-				class="absolute top-0 right-0 dark:text-slate-200 text-gray-600 p-6"
+				class="dark:text-slate-300 text-gray-600 p-4"
 				@click="close()"
 			>
 				<svg
@@ -121,23 +125,18 @@ function close() {
 					class="w-6 h-6"
 				>
 					<path
-						data-v-314bab64=""
 						d="M12 22C17.4706 22 22 17.4706 22 12C22 6.53922 17.4608 2 11.9902 2C6.52941 2 2 6.53922 2 12C2 17.4706 6.53922 22 12 22ZM12 20.3333C7.37255 20.3333 3.67647 16.6275 3.67647 12C3.67647 7.38235 7.36274 3.66667 11.9902 3.66667C16.6176 3.66667 20.3235 7.38235 20.3333 12C20.3431 16.6275 16.6275 20.3333 12 20.3333ZM8.64706 16.1569C8.86275 16.1569 9.06863 16.0686 9.20588 15.9118L11.9902 13.1176L14.7843 15.9118C14.9314 16.0588 15.1176 16.1569 15.3431 16.1569C15.7745 16.1569 16.1275 15.7941 16.1275 15.3627C16.1275 15.1373 16.049 14.951 15.8922 14.8039L13.1078 12.0196L15.902 9.21569C16.0686 9.04902 16.1373 8.88235 16.1373 8.66667C16.1373 8.22549 15.7843 7.88235 15.3529 7.88235C15.1471 7.88235 14.9804 7.95098 14.8137 8.11765L11.9902 10.9216L9.18627 8.12745C9.04902 7.97059 8.86275 7.90196 8.64706 7.90196C8.21569 7.90196 7.86274 8.23529 7.86274 8.67647C7.86274 8.89216 7.94118 9.07843 8.09804 9.22549L10.8824 12.0196L8.09804 14.8137C7.94118 14.951 7.86274 15.1471 7.86274 15.3627C7.86274 15.7941 8.21569 16.1569 8.64706 16.1569Z"
 						fill="currentColor"
 					/>
 				</svg>
 			</button>
+		</div>
 
-			<h1 class="text-xl dark:text-slate-200 text-gray-800 pl-8 pr-16 md:hidden">
-				{{ product.name }}
-			</h1>
-
-			<div
-				class="relative grid place-items-center w-full lg:w-4/12 h-1/2 dark:bg-slate-700/90 bg-white rounded-xl"
-			>
+		<div class="flex flex-col space-y-6 lg:flex-row lg:space-x-10">
+			<div class="relative grid place-items-center p-4 dark:bg-slate-700/90 bg-white rounded-xl">
 				<img
-					class="min-h-[356px]"
-					:src="`${config.baseImages}/products/${product.image}?width=356&height=356`"
+					class="max-w-full lg:min-w-[512px] lg:min-h-[512px] min-h-[360px] rounded-md"
+					:src="`${config.baseImages}/products/${product.image}?width=512&height=512`"
 					:alt="product.name"
 				/>
 
@@ -162,12 +161,8 @@ function close() {
 				</button>
 			</div>
 
-			<div class="flex flex-col space-y-8 flex-1 px-8 md:px-0">
-				<h1 class="text-xl dark:text-slate-200 text-gray-800 hidden md:block">
-					{{ product.name }}
-				</h1>
-
-				<div>
+			<div class="flex flex-col space-y-8">
+				<section>
 					<div class="flex space-x-2 mb-4">
 						<svg
 							class="h-6 w-6 text-teal-300"
@@ -186,7 +181,7 @@ function close() {
 						<h2 class="uppercase tracking-wide text-teal-400">інформація</h2>
 					</div>
 
-					<div class="flex flex-row flex-wrap justify-center lg:justify-start gap-4">
+					<div class="flex gap-x-4">
 						<Badge
 							v-for="item in information"
 							:key="item.header"
@@ -194,9 +189,9 @@ function close() {
 							:text="item.text"
 						/>
 					</div>
-				</div>
+				</section>
 
-				<div>
+				<section>
 					<div class="flex space-x-2 mb-4">
 						<svg
 							class="h-6 w-6 text-teal-300"
@@ -214,7 +209,7 @@ function close() {
 						<h3 class="uppercase tracking-wide text-teal-400">Ціни</h3>
 					</div>
 
-					<div class="flex flex-row flex-wrap justify-center lg:justify-start gap-4">
+					<div class="flex flex-col lg:flex-row gap-4">
 						<Badge
 							v-for="item in prices"
 							:key="item.header"
@@ -222,9 +217,9 @@ function close() {
 							:text="item.text"
 						/>
 					</div>
-				</div>
+				</section>
 
-				<div class="w-full lg:w-4/5 lg:h-max bg-white dark:bg-slate-700/90 rounded-md">
+				<div class="bg-gray-100 dark:bg-slate-700/90 rounded-md">
 					<Charts :chart-series="charts" />
 				</div>
 			</div>
