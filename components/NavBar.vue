@@ -143,14 +143,9 @@ const city = computed({
 	set: (value: City) => piniaStore.setCity(value),
 })
 
-const { data: cities } = await useAsyncData('cities', async () => {
-	const res: City[] = await $fetch(`${config.baseAPI}/store/cities`)
+const { data: cities } = await useFetch<SelectOption[]>('/api/cities')
 
-	const options: SelectOption[] = res.map(city => ({ title: city.name, value: city }))
-	return options
-})
-
-const defaultOption: SelectOption = cities.value.find(item => item.value.slug === city.value.slug)
+const defaultOption = cities.value.find(item => item.value.slug === city.value.slug)
 
 watch(
 	() => piniaStore.showDropdown,
