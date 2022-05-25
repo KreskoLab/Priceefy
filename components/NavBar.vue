@@ -1,5 +1,5 @@
 <template>
-	<div
+	<header
 		class="fixed top-0 h-16 z-50 w-full border-b dark:border-slate-800 dark:bg-slate-900/75 bg-white/75 border-gray-200 backdrop-blur"
 	>
 		<div class="flex justify-between items-center container mx-auto px-4 lg:px-8 h-full">
@@ -98,7 +98,10 @@
 						</div>
 					</DropdownItem>
 
-					<DropdownItem v-if="userStore.loggedIn">
+					<DropdownItem
+						v-if="userStore.loggedIn"
+						:has-link="true"
+					>
 						<NuxtLink to="/favorites">Обранні</NuxtLink>
 					</DropdownItem>
 
@@ -109,13 +112,16 @@
 						Вийти
 					</DropdownItem>
 
-					<DropdownItem v-else>
+					<DropdownItem
+						:has-link="true"
+						v-else
+					>
 						<a :href="`${config.baseAPI}/users/auth/google`">Увійти</a>
 					</DropdownItem>
 				</Dropdown>
 			</div>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script
