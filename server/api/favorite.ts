@@ -9,7 +9,7 @@ export default defineEventHandler(async event => {
 			cookie: `accessToken=${cookies.accessToken}`,
 		},
 		body: {
-			product: query.productId,
+			product: query.product,
 		},
 	})
 
