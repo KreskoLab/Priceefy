@@ -67,13 +67,9 @@ async function handleFavorite(productId: string) {
 		const httpMethod = userStore.value.user.favorites.includes(productId) ? 'delete' : 'post'
 
 		userStore.value.user.favorites = await $fetch(
-			`/api/favorite?userId=${userStore.value.user._id}`,
+			`/api/favorite?userId=${userStore.value.user._id}&product=${productId}&method=${httpMethod}`,
 			{
 				headers: useRequestHeaders(['cookie']),
-				body: {
-					product: productId,
-					method: httpMethod,
-				},
 			}
 		)
 	} else {
