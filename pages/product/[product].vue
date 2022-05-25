@@ -89,11 +89,11 @@ function close() {
 		class="flex flex-col space-y-6 px-4 py-4 lg:px-12 lg:space-y-4 lg:w-10/12 w-full mx-auto dark:bg-slate-800 bg-white rounded-lg"
 	>
 		<Head>
-			<Title>{{ product.name }} - Priceefy</Title>
+			<Title>{{ product.name }}</Title>
 
 			<Meta
 				name="description"
-				:content="`${product.name} ціни та акції - priceefy.com`"
+				:content="`${product.name} ціни та акції - Priceefy.com`"
 			/>
 
 			<Meta

@@ -85,7 +85,7 @@ function updateParamsObject(): void {
 <template>
 	<div class="h-full px-6 lg:px-0 lg:pl-80">
 		<Head>
-			<Title>Перегляд цін на продукти - Priceefy</Title>
+			<Title>Перегляд цін на продукти</Title>
 			<Meta
 				name="description"
 				content="Ціни та акції на продукти - priceefy.com"

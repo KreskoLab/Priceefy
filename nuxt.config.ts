@@ -27,5 +27,7 @@ export default defineNuxtConfig({
 		htmlAttrs: {
 			lang: 'uk',
 		},
+
+		titleTemplate: '%s - Priceefy',
 	},
 })
