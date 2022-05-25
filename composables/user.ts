@@ -30,12 +30,11 @@ export const logOut = async () => {
 	const user = useUser()
 	const config = useRuntimeConfig()
 
-	await $fetch
-		.raw(`${config.baseAPI}/users/auth/logout`, {
-			credentials: 'include',
-		})
-		.then(() => {
-			user.value.loggedIn = false
-			user.value.user = {} as User
-		})
+	await $fetch('/api/logout', {
+		headers: useRequestHeaders(['cookie']),
+		credentials: 'include',
+	}).then(() => {
+		user.value.loggedIn = false
+		user.value.user = {} as User
+	})
 }
