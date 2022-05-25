@@ -28,7 +28,6 @@ export const logIn = async () => {
 
 export const logOut = async () => {
 	const user = useUser()
-	const config = useRuntimeConfig()
 
 	await $fetch('/api/logout', {
 		headers: useRequestHeaders(['cookie']),
