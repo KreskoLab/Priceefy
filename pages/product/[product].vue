@@ -179,7 +179,7 @@ function close() {
 						<h2 class="uppercase tracking-wide text-teal-400">інформація</h2>
 					</div>
 
-					<div class="flex flex-wrap gap-x-4">
+					<div class="flex flex-wrap gap-4">
 						<Badge
 							v-for="item in information"
 							:key="item.header"
