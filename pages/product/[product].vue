@@ -66,18 +66,16 @@ async function handleFavorite(productId: string) {
 	if (userStore.value.loggedIn) {
 		const httpMethod = userStore.value.user.favorites.includes(productId) ? 'delete' : 'post'
 
-		const res = await $fetch<string[]>(
-			`${config.baseAPI}/users/${userStore.value.user._id}/favorite`,
+		userStore.value.user.favorites = await $fetch(
+			`/api/favorite?userId=${userStore.value.user._id}`,
 			{
-				method: httpMethod,
-				credentials: 'include',
+				headers: useRequestHeaders(['cookie']),
 				body: {
 					product: productId,
+					method: httpMethod,
 				},
 			}
 		)
-
-		userStore.value.user.favorites = res
 	} else {
 		piniaStore.openDropdown()
 	}
@@ -181,7 +179,7 @@ function close() {
 						<h2 class="uppercase tracking-wide text-teal-400">інформація</h2>
 					</div>
 
-					<div class="flex gap-x-4">
+					<div class="flex flex-wrap gap-x-4">
 						<Badge
 							v-for="item in information"
 							:key="item.header"
@@ -209,7 +207,7 @@ function close() {
 						<h3 class="uppercase tracking-wide text-teal-400">Ціни</h3>
 					</div>
 
-					<div class="flex flex-col lg:flex-row gap-4">
+					<div class="flex flex-wrap flex-col lg:flex-row gap-4">
 						<Badge
 							v-for="item in prices"
 							:key="item.header"
