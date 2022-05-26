@@ -41,7 +41,6 @@ const chartOptions = reactive({
 		redrawOnWindowResize: true,
 		events: {
 			mounted: function (chartContext, config) {
-				console.log(chartContext, config)
 				chartContext.windowResizeHandler()
 			},
 		},
@@ -109,8 +108,8 @@ const chartOptions = reactive({
 		max: Math.max(...props.chartSeries.timeseries),
 		labels: {
 			trim: false,
-			formatter: function (val) {
-				return val + ' ' + new Date().toLocaleString('default', { month: 'short' })
+			formatter: function (val: number) {
+				return Math.ceil(val) + ' ' + new Date().toLocaleString('default', { month: 'short' })
 			},
 		},
 
