@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="flex items-center space-x-3">
-			<Dropdown>
+			<Dropdown v-if="category.slug">
 				<template #header>
 					<span
 						class="bg-white text-gray-600 dark:bg-slate-800 dark:text-slate-200 text-sm sm:text-base py-1 px-3 rounded-md select-none"
@@ -44,6 +44,7 @@
 >
 import { useStore } from '~/stores/main'
 import type { Sort } from '~/models/sort'
+import type { Category } from '~/models/category'
 
 defineProps({
 	count: {
@@ -56,6 +57,7 @@ const piniaStore = useStore()
 const bottomSheet = useBottomSheet()
 
 const sort = computed<Sort>(() => piniaStore.sort)
+const category = computed<Category>(() => piniaStore.category)
 
 function setSort(sort: Sort) {
 	piniaStore.setSort(sort)
