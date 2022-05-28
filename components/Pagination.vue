@@ -2,6 +2,7 @@
 	<div class="flex flex-row justify-center w-full h-full">
 		<button
 			class="btn_arrow rounded-l-3xl"
+			aria-label="Previous page"
 			:disabled="page === 1"
 			@click="prev()"
 		>
@@ -30,6 +31,7 @@
 
 		<button
 			class="btn_arrow rounded-r-3xl"
+			aria-label="Next page"
 			:disabled="page >= pages"
 			@click="next()"
 		>
