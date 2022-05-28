@@ -15,7 +15,7 @@ watch(showBottomSheet, val => {
 </script>
 
 <template>
-	<div class="min-h-screen overflow-y-auto dark:bg-slate-900 bg-gray-100">
+	<div class="min-h-screen overflow-y-auto overflow-x-hidden dark:bg-slate-900 bg-gray-100">
 		<NavBar v-if="$route.name !== 'callback'" />
 
 		<BottomSheet />
