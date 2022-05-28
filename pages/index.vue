@@ -28,10 +28,13 @@ if (queryObject.sort) {
 	piniaStore.setSort({ val: queryObject.sort as SortVal, title: SORT_TITLES[queryObject.sort] })
 }
 
-const { data, refresh, pending } = await useLazyAsyncData<ProductsAndCount>('products', () =>
-	$fetch(`/api/products/${city.value.slug}`, {
-		params: queryObject,
-	})
+const { data, refresh, pending } = await useLazyAsyncData<ProductsAndCount>(
+	'products',
+	() =>
+		$fetch(`/api/products/${city.value.slug}`, {
+			params: queryObject,
+		}),
+	{ server: category.value.slug ? true : false }
 )
 
 onMounted(() => {
