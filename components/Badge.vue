@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="flex justify-center items-center mb-2">
-			<span class="dark:text-slate-300 text-gray-600 text-center capitalize font-medium">
+			<span class="dark:text-slate-300 text-gray-600 text-center font-medium">
 				{{ text }}
 			</span>
 		</div>
