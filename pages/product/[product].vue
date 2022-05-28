@@ -53,14 +53,20 @@ const information = computed<Badge[]>(() => {
 	return items
 })
 
-const prices = computed<Badge[]>(() => {
-	return product.value.prices
+const prices = computed<Badge[]>(() =>
+	product.value.prices
 		.sort((a, b) => a.price - b.price)
-		.map(item => ({
-			header: item.store,
-			text: `${item.price.toFixed(2)} ₴`,
+		.map(price => ({
+			header: price.store,
+			text: price.discount
+				? `${price.discount_price.toFixed(2)} ₴ до ${new Date(
+						price.discount_end
+				  ).getDay()} ${new Date(price.discount_end).toLocaleString('default', {
+						month: 'short',
+				  })}`
+				: `${price.price.toFixed(2)} ₴`,
 		}))
-})
+)
 
 async function handleFavorite(productId: string) {
 	if (userStore.value.loggedIn) {

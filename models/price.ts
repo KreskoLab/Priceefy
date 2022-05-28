@@ -3,7 +3,7 @@ export type Price = {
 	city: string
 	discount: boolean
 	discount_end: Date
-	discrount_price: number
+	discount_price: number
 	price: number
 	store: string
 }

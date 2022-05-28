@@ -1,6 +1,6 @@
 <template>
 	<article
-		class="flex flex-col space-y-12 w-full h-full min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out py-5 px-4"
+		class="flex flex-col space-y-12 min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out py-5 px-4"
 	>
 		<div class="flex space-x-6">
 			<div
@@ -14,8 +14,12 @@
 			</div>
 
 			<div class="flex flex-col space-y-2 pt-0.5 dark:text-slate-200 text-gray-800">
-				<h2 class="text-sm line-clamp-3">{{ normalName }}</h2>
-				<span class="w-max dark:bg-teal-600/40 bg-teal-200/80 rounded px-2 tracking-wider">
+				<h2 class="text-sm break-words line-clamp-3">{{ normalName }}</h2>
+
+				<span
+					class="w-max dark:bg-teal-600/40 bg-teal-200/80 rounded px-2 tracking-wider"
+					:class="{ 'bg-red-200/80 dark:bg-red-500/80': isDiscount }"
+				>
 					{{ normalPrice }}
 				</span>
 			</div>
@@ -70,7 +74,10 @@ const props = defineProps<{
 	product: Product
 }>()
 
-const normalWeight = computed(() => useHandleWeight(props.product.weight, props.product.unit))
+const normalWeight = computed<string>(() =>
+	useHandleWeight(props.product.weight, props.product.unit)
+)
+const isDiscount = computed<boolean>(() => props.product.prices.some(price => price.discount))
 
 const normalPrice = computed(() => {
 	const prices = props.product.prices.map(item => item.price)
