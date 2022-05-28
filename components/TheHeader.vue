@@ -4,9 +4,9 @@
 	>
 		<div class="flex justify-between items-center container mx-auto px-4 lg:px-8 h-full">
 			<div class="flex items-center space-x-4">
-				<Logo />
+				<TheLogo />
 
-				<UiSelect
+				<AppSelect
 					v-model="city"
 					:options="cities"
 					:default-option="defaultOption"
@@ -14,7 +14,7 @@
 			</div>
 
 			<div class="hidden sm:flex sm:grow sm:max-w-xs md:max-w-sm 2xl:max-w-xl">
-				<SearchInput />
+				<AppSearchInput />
 			</div>
 
 			<div class="flex items-center space-x-6">
@@ -38,17 +38,17 @@
 						v-if="showMobileSearch"
 						class="absolute z-50 top-[60px] left-0 dark:bg-slate-900/70 bg-white/70 border-b border-gray-200 dark:border-slate-800 w-full px-3 py-4"
 					>
-						<SearchInput />
+						<AppSearchInput />
 					</div>
 				</div>
 
 				<div class="hidden lg:block lg:!mx-8">
 					<ClientOnly>
-						<ColorToggle />
+						<AppColorToggle />
 					</ClientOnly>
 				</div>
 
-				<Dropdown ref="dropdown">
+				<AppDropdown ref="dropdown">
 					<template #header>
 						<div
 							class="rounded-full border-[1.6px] dark:border-slate-50 border-gray-600 p-2"
@@ -91,34 +91,34 @@
 						</svg>
 					</template>
 
-					<DropdownItem class="lg:hidden">
+					<AppDropdownItem class="lg:hidden">
 						<div class="flex items-center justify-between">
 							<span>Тема</span>
-							<ColorToggle />
+							<AppColorToggle />
 						</div>
-					</DropdownItem>
+					</AppDropdownItem>
 
-					<DropdownItem
+					<AppDropdownItem
 						v-if="userStore.loggedIn"
 						:has-link="true"
 					>
 						<NuxtLink to="/favorites">Обранні</NuxtLink>
-					</DropdownItem>
+					</AppDropdownItem>
 
-					<DropdownItem
+					<AppDropdownItem
 						v-if="userStore.loggedIn"
 						@click="logout()"
 					>
 						Вийти
-					</DropdownItem>
+					</AppDropdownItem>
 
-					<DropdownItem
+					<AppDropdownItem
 						:has-link="true"
 						v-else
 					>
 						<a :href="`${config.baseAPI}/users/auth/google`">Увійти</a>
-					</DropdownItem>
-				</Dropdown>
+					</AppDropdownItem>
+				</AppDropdown>
 			</div>
 		</div>
 	</header>
@@ -131,7 +131,7 @@
 import type { City } from '~/models/city'
 import type { SelectOption } from '~/models/select-option'
 import { useStore } from '~/stores/main'
-import Dropdown from '~/components/Dropdown/Dropdown.vue'
+import Dropdown from '~/components/App/Dropdown/AppDropdown.vue'
 
 const userStore = useUser()
 const piniaStore = useStore()

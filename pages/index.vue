@@ -100,14 +100,14 @@ function updateParamsObject(): void {
 		</Head>
 
 		<div class="mb-8">
-			<FiltersBar />
+			<TheFiltersBar />
 
-			<Level
+			<AppLevel
 				v-if="!pending"
 				:count="data.count"
 			/>
 
-			<SkeletonLevel v-else />
+			<AppSkeletonLevel v-else />
 
 			<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 w-full h-full">
 				<template v-if="!pending">
@@ -116,12 +116,12 @@ function updateParamsObject(): void {
 						:key="product.slug"
 						:to="`/product/${product.slug}`"
 					>
-						<Card :product="product" />
+						<AppCard :product="product" />
 					</NuxtLink>
 				</template>
 
 				<template v-else>
-					<SkeletonCard
+					<AppSkeletonCard
 						v-for="n in 30"
 						:key="n"
 					/>
@@ -129,7 +129,7 @@ function updateParamsObject(): void {
 			</div>
 
 			<div class="mt-12 mb-4 xl:mr-52">
-				<Pagination
+				<AppPagination
 					v-if="!pending"
 					:count="data.count"
 					:per-page="30"

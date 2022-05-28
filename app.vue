@@ -16,13 +16,13 @@ watch(showBottomSheet, val => {
 
 <template>
 	<div class="min-h-screen overflow-y-auto overflow-x-hidden dark:bg-slate-900 bg-gray-100">
-		<NavBar v-if="$route.name !== 'callback'" />
+		<TheHeader v-if="$route.name !== 'callback'" />
 
-		<BottomSheet />
+		<AppBottomSheet />
 
 		<div class="container mx-auto">
 			<div class="hidden lg:block">
-				<SideBar
+				<AppSidebar
 					v-if="
 						$route.name !== 'callback' &&
 						$route.name !== 'product-product' &&

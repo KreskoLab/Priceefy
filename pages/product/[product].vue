@@ -182,7 +182,7 @@ function close() {
 					</div>
 
 					<div class="flex flex-wrap gap-4">
-						<Badge
+						<AppBadge
 							v-for="item in information"
 							:key="item.header"
 							:header="item.header"
@@ -210,7 +210,7 @@ function close() {
 					</div>
 
 					<div class="flex flex-wrap flex-col lg:flex-row gap-4">
-						<Badge
+						<AppBadge
 							v-for="item in prices"
 							:key="item.header"
 							:header="item.header"
@@ -220,7 +220,7 @@ function close() {
 				</section>
 
 				<div class="bg-gray-100 dark:bg-slate-700/90 rounded-md">
-					<Charts :chart-series="charts" />
+					<AppCharts :chart-series="charts" />
 				</div>
 			</div>
 		</div>

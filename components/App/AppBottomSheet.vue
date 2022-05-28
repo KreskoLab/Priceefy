@@ -18,7 +18,7 @@
 			>
 				<div class="h-[4px] w-24 mx-auto rounded-md bg-slate-200" />
 
-				<SideBar />
+				<AppSidebar />
 			</div>
 		</Transition>
 	</div>

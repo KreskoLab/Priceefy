@@ -3,13 +3,13 @@
 		class="block h-full overflow-y-auto lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 lg:invisible scrollbox"
 	>
 		<div class="w-full px-3 lg:w-72 scrollbox-content">
-			<SideBarBlock
+			<AppSidebarBlock
 				v-model="store"
 				title="Магазини"
 				:items="piniaStore.availableStores"
 			/>
 
-			<SideBarBlock
+			<AppSidebarBlock
 				v-model="category"
 				title="Категорії"
 				:items="categories"

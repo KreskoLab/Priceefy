@@ -12,7 +12,7 @@
 				:key="product.slug"
 				:to="`/product/${product.slug}`"
 			>
-				<Card :product="product" />
+				<AppCard :product="product" />
 			</NuxtLink>
 		</div>
 	</div>

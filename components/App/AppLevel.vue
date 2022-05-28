@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="flex items-center space-x-3">
-			<Dropdown v-if="category.slug">
+			<AppDropdown v-if="category.slug">
 				<template #header>
 					<span
 						class="bg-white text-gray-600 dark:bg-slate-800 dark:text-slate-200 text-sm sm:text-base py-1 px-3 rounded-md select-none"
@@ -15,10 +15,18 @@
 					</span>
 				</template>
 
-				<DropdownItem @click="setSort({ val: 'asc', title: 'Дешевші' })">Дешевші</DropdownItem>
-				<DropdownItem @click="setSort({ val: 'desc', title: 'Дорожчі' })">Дорожчі</DropdownItem>
-				<DropdownItem @click="setSort({ val: 'discount', title: 'Акційні' })">Акційні</DropdownItem>
-			</Dropdown>
+				<AppDropdownItem @click="setSort({ val: 'asc', title: 'Дешевші' })">
+					Дешевші
+				</AppDropdownItem>
+
+				<AppDropdownItem @click="setSort({ val: 'desc', title: 'Дорожчі' })"
+					>Дорожчі
+				</AppDropdownItem>
+
+				<AppDropdownItem @click="setSort({ val: 'discount', title: 'Акційні' })"
+					>Акційні
+				</AppDropdownItem>
+			</AppDropdown>
 
 			<svg
 				class="h-6 w-6 rotate-90 block cursor-pointer lg:hidden"

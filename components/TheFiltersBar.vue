@@ -15,13 +15,13 @@
 			/>
 		</svg>
 
-		<Chip
+		<AppChip
 			:title="store.name"
 			@clear="piniaStore.setStore({} as Store)"
 			v-if="Object.keys(store).length"
 		/>
 
-		<Chip
+		<AppChip
 			:title="category.name"
 			@clear="piniaStore.setCategory({} as Category)"
 			v-if="Object.keys(category).length"
