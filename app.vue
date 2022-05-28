@@ -31,7 +31,7 @@ watch(showBottomSheet, val => {
 				/>
 			</div>
 
-			<main class="pt-[4rem] lg:px-8 lg:pt-24">
+			<main class="pt-[4rem] min-w-[320px] lg:px-8 lg:pt-24">
 				<NuxtPage />
 			</main>
 		</div>
