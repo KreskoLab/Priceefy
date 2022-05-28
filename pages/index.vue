@@ -101,7 +101,6 @@ function updateParamsObject(): void {
 
 			<Level
 				v-if="!pending"
-				id="products"
 				:count="data.count"
 			/>
 
