@@ -21,8 +21,8 @@ export const logIn = async () => {
 		userStore.value.user = res.user
 		userStore.value.loggedIn = true
 	} else {
-		userStore.value.user = {} as User
 		userStore.value.loggedIn = false
+		userStore.value.user = {} as User
 	}
 }
 
