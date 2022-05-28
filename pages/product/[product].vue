@@ -61,7 +61,7 @@ const prices = computed<Badge[]>(() =>
 			text: price.discount
 				? `${price.discount_price.toFixed(2)} ₴ до ${new Date(
 						price.discount_end
-				  ).getDay()} ${new Date(price.discount_end).toLocaleString('default', {
+				  ).getDate()} ${new Date(price.discount_end).toLocaleString('default', {
 						month: 'short',
 				  })}`
 				: `${price.price.toFixed(2)} ₴`,
