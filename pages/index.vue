@@ -8,6 +8,7 @@ import type { Category } from '~/models/category'
 import { Sort, SortVal, SORT_TITLES } from '~/models/sort'
 import { QueryObject } from '~/models/query-object'
 import { useStore } from '~/stores/main'
+import { ProductResponse } from '~~/interfaces'
 
 const piniaStore = useStore()
 const router = useRouter()
@@ -28,13 +29,10 @@ if (queryObject.sort) {
 	piniaStore.setSort({ val: queryObject.sort as SortVal, title: SORT_TITLES[queryObject.sort] })
 }
 
-const { data, refresh, pending } = await useLazyAsyncData<ProductsAndCount>(
-	'products',
-	() =>
-		$fetch(`/api/products/${city.value.slug}`, {
-			params: queryObject,
-		}),
-	{ server: category.value.slug ? true : false }
+const { data, refresh, pending } = await useLazyAsyncData<ProductResponse>('products', () =>
+	$fetch(`/api/products/${city.value.slug}`, {
+		params: queryObject,
+	})
 )
 
 onMounted(() => {
@@ -112,7 +110,7 @@ function updateParamsObject(): void {
 			<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 w-full h-full">
 				<template v-if="!pending">
 					<NuxtLink
-						v-for="product in data.products"
+						v-for="product in data.results"
 						:key="product.slug"
 						:to="`/product/${product.slug}`"
 					>
