@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="flex items-center space-x-3">
-			<AppDropdown v-if="category.slug">
+			<AppDropdown>
 				<template #header>
 					<span
 						class="bg-white text-gray-600 dark:bg-slate-800 dark:text-slate-200 text-sm sm:text-base py-1 px-3 rounded-md select-none"
@@ -19,12 +19,12 @@
 					Дешевші
 				</AppDropdownItem>
 
-				<AppDropdownItem @click="setSort({ val: 'desc', title: 'Дорожчі' })"
-					>Дорожчі
+				<AppDropdownItem @click="setSort({ val: 'desc', title: 'Дорожчі' })">
+					Дорожчі
 				</AppDropdownItem>
 
-				<AppDropdownItem @click="setSort({ val: 'discount', title: 'Акційні' })"
-					>Акційні
+				<AppDropdownItem @click="setSort({ val: 'discount', title: 'Акційні' })">
+					Акційні
 				</AppDropdownItem>
 			</AppDropdown>
 
