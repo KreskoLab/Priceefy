@@ -1,3 +1,40 @@
+<script
+	setup
+	lang="ts"
+>
+import type { Product } from '@/models/product'
+
+const config = useRuntimeConfig()
+
+const props = defineProps<{
+	product: Product
+}>()
+
+const normalWeight = computed<string>(() =>
+	useHandleWeight(props.product.weight, props.product.unit)
+)
+const isDiscount = computed<boolean>(() => props.product.prices.some(price => price.discount))
+
+const normalPrice = computed(() => {
+	const prices = props.product.prices.map(item => item.price)
+	if (prices.length > 1) {
+		return `₴ ${Math.min(...prices).toFixed(2)} - ₴ ${Math.max(...prices).toFixed(2)}`
+	} else {
+		return `₴ ${prices[0].toFixed(2)}`
+	}
+})
+
+const normalName = computed(() => {
+	if (props.product.unit === 'ml') {
+		return String(props.product.weight).length === 4
+			? `${props.product.name} ${props.product.weight / 1000}л`
+			: `${props.product.name} ${props.product.weight}мл`
+	} else {
+		return props.product.name
+	}
+})
+</script>
+
 <template>
 	<article
 		class="flex flex-col space-y-12 min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out py-5 px-4"
@@ -8,7 +45,7 @@
 			>
 				<img
 					class="h-16 w-16"
-					:src="`${config.baseImages}/products/${product.image}?width=128&height=128`"
+					:src="product.image"
 					:alt="product.name"
 				/>
 			</div>
@@ -61,40 +98,3 @@
 		</div>
 	</article>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-import type { Product } from '@/models/product'
-
-const config = useRuntimeConfig()
-
-const props = defineProps<{
-	product: Product
-}>()
-
-const normalWeight = computed<string>(() =>
-	useHandleWeight(props.product.weight, props.product.unit)
-)
-const isDiscount = computed<boolean>(() => props.product.prices.some(price => price.discount))
-
-const normalPrice = computed(() => {
-	const prices = props.product.prices.map(item => item.price)
-	if (prices.length > 1) {
-		return `₴ ${Math.min(...prices).toFixed(2)} - ₴ ${Math.max(...prices).toFixed(2)}`
-	} else {
-		return `₴ ${prices[0].toFixed(2)}`
-	}
-})
-
-const normalName = computed(() => {
-	if (props.product.unit === 'ml') {
-		return String(props.product.weight).length === 4
-			? `${props.product.name} ${props.product.weight / 1000}л`
-			: `${props.product.name} ${props.product.weight}мл`
-	} else {
-		return props.product.name
-	}
-})
-</script>
