@@ -1,3 +1,40 @@
+<script setup lang="ts">
+import type { City } from '~/models/city'
+import type { SelectOption } from '~/models/select-option'
+import { useStore } from '~/stores/main'
+import Dropdown from '~/components/App/Dropdown/AppDropdown.vue'
+
+const userStore = useUser()
+const piniaStore = useStore()
+const config = useRuntimeConfig()
+
+const logout = async () => {
+	await logOut()
+}
+
+const dropdown = ref<InstanceType<typeof Dropdown>>()
+const showMobileSearch = useState<boolean>('mobileSearch', () => false)
+
+const city = computed({
+	get: () => piniaStore.city,
+	set: (value: City) => piniaStore.setCity(value),
+})
+
+const { data: cities } = await useFetch<SelectOption[]>('/api/cities')
+
+const defaultOption = cities.value.find(item => item.value.slug === city.value.slug)
+
+watch(
+	() => piniaStore.showDropdown,
+	val => {
+		if (val) {
+			dropdown.value?.open()
+			piniaStore.openDropdown()
+		}
+	}
+)
+</script>
+
 <template>
 	<header
 		class="fixed top-0 h-16 z-50 min-w-[320px] w-full border-b dark:border-slate-800 dark:bg-slate-900/75 bg-white/75 border-gray-200 backdrop-blur"
@@ -116,50 +153,10 @@
 						:has-link="true"
 						v-else
 					>
-						<a :href="`${config.baseAPI}/users/auth/google`">Увійти</a>
+						<a :href="`${config.baseAPI}/login`">Увійти</a>
 					</AppDropdownItem>
 				</AppDropdown>
 			</div>
 		</div>
 	</header>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-import type { City } from '~/models/city'
-import type { SelectOption } from '~/models/select-option'
-import { useStore } from '~/stores/main'
-import Dropdown from '~/components/App/Dropdown/AppDropdown.vue'
-
-const userStore = useUser()
-const piniaStore = useStore()
-const config = useRuntimeConfig()
-
-const logout = async () => {
-	await logOut()
-}
-
-const dropdown = ref<InstanceType<typeof Dropdown>>()
-const showMobileSearch = useState<boolean>('mobileSearch', () => false)
-
-const city = computed({
-	get: () => piniaStore.city,
-	set: (value: City) => piniaStore.setCity(value),
-})
-
-const { data: cities } = await useFetch<SelectOption[]>('/api/cities')
-
-const defaultOption = cities.value.find(item => item.value.slug === city.value.slug)
-
-watch(
-	() => piniaStore.showDropdown,
-	val => {
-		if (val) {
-			dropdown.value?.open()
-			piniaStore.openDropdown()
-		}
-	}
-)
-</script>
