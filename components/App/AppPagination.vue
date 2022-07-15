@@ -6,19 +6,7 @@
 			:disabled="page === 1"
 			@click="prev()"
 		>
-			<svg
-				class="h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M15 19l-7-7 7-7"
-				/>
-			</svg>
+			<IconMdiChevronLeft class="text-2xl" />
 		</button>
 
 		<div
@@ -35,27 +23,12 @@
 			:disabled="page >= pages"
 			@click="next()"
 		>
-			<svg
-				class="h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M9 5l7 7-7 7"
-				/>
-			</svg>
+			<IconMdiChevronRight class="text-2xl" />
 		</button>
 	</div>
 </template>
 
-<script
-	setup
-	lang="ts"
->
+<script setup lang="ts">
 const props = defineProps({
 	count: {
 		type: Number,
