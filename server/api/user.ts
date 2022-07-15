@@ -5,7 +5,7 @@ export default defineEventHandler(async event => {
 	const config = useRuntimeConfig()
 
 	if (cookies.accessToken) {
-		const user = await $fetch(`${config.baseAPI}/users/auth/me`, {
+		const user = await $fetch(`${config.baseAPI}/me`, {
 			headers: {
 				cookie: `accessToken=${cookies.accessToken}`,
 			},
