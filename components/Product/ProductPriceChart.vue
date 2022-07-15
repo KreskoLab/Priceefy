@@ -31,8 +31,8 @@ const props = defineProps<{
 	chartId: string
 	datasetIdKey?: string
 	chartData: Pick<Price, 'price' | 'store' | 'created_at'>[]
-	width: number
-	height: number
+	width?: number
+	height?: number
 	cssClasses?: string
 	styles?: Partial<CSSStyleDeclaration>
 }>()
@@ -69,6 +69,7 @@ function getStoreColor(store: string) {
 const options = computed<TChartOptions<'line'>>(() => {
 	return {
 		responsive: true,
+		maintainAspectRatio: false,
 		layout: {
 			padding: {
 				top: 30,
@@ -196,13 +197,13 @@ const transformedData = computed<TChartData<'line'>>(() => {
 
 <template>
 	<Line
-		:chart-options="(options as TChartOptions<'line'>)"
+		:chart-options="options"
 		:chart-data="transformedData"
 		:chart-id="chartId"
 		:dataset-id-key="datasetIdKey"
 		:css-classes="cssClasses"
 		:styles="styles"
-		:width="width"
 		:height="height"
+		:width="width"
 	/>
 </template>
