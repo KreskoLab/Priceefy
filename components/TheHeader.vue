@@ -51,7 +51,9 @@ watch(
 			</div>
 
 			<div class="hidden sm:flex sm:grow sm:max-w-xs md:max-w-sm 2xl:max-w-xl">
-				<AppSearchInput />
+				<ClientOnly>
+					<AppSearchInput />
+				</ClientOnly>
 			</div>
 
 			<div class="flex items-center space-x-6">
@@ -88,20 +90,10 @@ watch(
 				<AppDropdown ref="dropdown">
 					<template #header>
 						<div
-							class="rounded-full border-[1.6px] dark:border-slate-50 border-gray-600 p-2"
+							class="rounded-full border-[1.6px] dark:border-slate-50 border-gray-600 p-1.5"
 							v-if="!userStore.loggedIn"
 						>
-							<svg
-								viewBox="0 0 20 21.9"
-								class="h-4 w-4 dark:fill-slate-300 fill-gray-600"
-							>
-								<path
-									d="M13.4,11.7c2.9-1.9,3.8-5.8,1.9-8.8S9.5-0.9,6.6,1S2.8,6.8,4.7,9.8c0.5,0.8,1.1,1.4,1.9,1.9
-	C2.6,13.1,0,16.9,0,21.1c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8c0-4.6,3.8-8.4,8.4-8.4s8.4,3.8,8.4,8.4c0,0.4,0.4,0.8,0.8,0.8
-	c0.4,0,0.8-0.4,0.8-0.8C20,16.9,17.4,13.1,13.4,11.7 M5.3,6.3c0-2.6,2.1-4.7,4.7-4.7s4.7,2.1,4.7,4.7s-2.1,4.7-4.7,4.7
-	C7.4,11.1,5.3,8.9,5.3,6.3"
-								/>
-							</svg>
+							<IconMdiAccountOutline class="dark:text-slate-300 text-gray-600 text-xl" />
 						</div>
 
 						<div
@@ -115,17 +107,7 @@ watch(
 							/>
 						</div>
 
-						<svg
-							class="h-5 w-5 dark:text-slate-300"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-								clip-rule="evenodd"
-							/>
-						</svg>
+						<IconMdiChevronDown class="dark:text-slate-300 text-gray-600 text-xl" />
 					</template>
 
 					<AppDropdownItem class="lg:hidden">
