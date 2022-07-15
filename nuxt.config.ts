@@ -39,6 +39,10 @@ export default defineNuxtConfig({
 		],
 	},
 
+	image: {
+		domains: ['zakaz.ua', 'silpo.ua'],
+	},
+
 	publicRuntimeConfig: {
 		baseAPI: process.env.API_URL,
 		baseImages: process.env.IMAGE_URL,
