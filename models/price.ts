@@ -1,9 +1,9 @@
 export type Price = {
-	_id: string
 	city: string
 	discount: boolean
 	discount_end: Date
-	discount_price: number
+	created_at: Date
 	price: number
 	store: string
+	in_stock: boolean
 }
