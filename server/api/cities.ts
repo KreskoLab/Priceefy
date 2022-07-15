@@ -1,5 +1,5 @@
 import type { City } from '~/models/city'
-import type { SelectOption } from '~~/models/select-option'
+import type { SelectOption } from '~/models/select-option'
 
 export default defineEventHandler(async () => {
 	const config = useRuntimeConfig()
