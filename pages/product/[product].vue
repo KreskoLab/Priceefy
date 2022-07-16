@@ -7,7 +7,6 @@ import { Price } from '~/models/price'
 const piniaStore = useStore()
 const userStore = useUser()
 
-const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 
@@ -74,12 +73,17 @@ const prices = computed(() =>
 
 async function handleFavorite(productId: string) {
 	if (userStore.value.loggedIn) {
-		const httpMethod = userStore.value.user.favorites.includes(productId) ? 'delete' : 'post'
+		const config = useRuntimeConfig()
 
 		userStore.value.user.favorites = await $fetch(
-			`/api/favorite?userId=${userStore.value.user._id}&product=${productId}&method=${httpMethod}`,
+			`${config.baseAPI}/users/${userStore.value.user._id}/favorites`,
 			{
 				headers: useRequestHeaders(['cookie']),
+				credentials: 'include',
+				method: 'PUT',
+				body: {
+					product: productId,
+				},
 			}
 		)
 	} else {
