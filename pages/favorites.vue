@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { Product } from '~/models/product'
+
+definePageMeta({
+	key: 'favorites',
+})
+
+const userStore = useUser()
+const router = useRouter()
+const city = useCityCookie()
+
+if (!userStore.value.loggedIn) router.push('/')
+
+const { data: products } = await useFetch<Product[]>(
+	`/api/favorites?userId=${userStore.value.user._id}&city=${city.slug}`,
+	{
+		headers: useRequestHeaders(['cookie']),
+		initialCache: false,
+	}
+)
+</script>
+
 <template>
 	<div class="h-full px-6 pt-4 pb-8 lg:px-0 lg:pt-0">
 		<Head>
@@ -17,37 +39,3 @@
 		</div>
 	</div>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-import { Product } from '~/models/product'
-
-definePageMeta({
-	key: 'favorites',
-})
-
-const userStore = useUser()
-const router = useRouter()
-
-if (!userStore.value.loggedIn) router.push('/')
-
-const { data: products } = await useAsyncData<Product[]>(
-	'favorites',
-	() =>
-		$fetch(`/api/favorites?userId=${userStore.value.user._id}`, {
-			headers: useRequestHeaders(['cookie']),
-		}),
-	{
-		initialCache: false,
-	}
-)
-
-watch(
-	() => userStore.value.loggedIn,
-	val => {
-		if (!val) router.push('/')
-	}
-)
-</script>
