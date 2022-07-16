@@ -4,8 +4,12 @@ module.exports = {
 	theme: {
 		extend: {},
 	},
+	variants: {
+		scrollbar: ['dark', 'rounded'],
+	},
 	plugins: [
 		require('@tailwindcss/line-clamp'),
+		require('tailwind-scrollbar'),
 		require('tailwindcss-animatecss')({
 			classes: [
 				'animate__animated',
