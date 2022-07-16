@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 
 	builder: 'vite',
 
-	ssr: true,
+	srcDir: 'src/',
 
 	vueuse: {
 		ssrHandlers: true,
