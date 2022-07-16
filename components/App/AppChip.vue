@@ -10,7 +10,7 @@ const emit = defineEmits<{
 
 <template>
 	<div
-		class="flex space-x-3 rounded-3xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-gray-200 py-1.5 px-4 text-sm dark:text-slate-300 text-gray-600 w-max"
+		class="flex space-x-3 rounded-3xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-gray-200 py-1 px-4 text-sm dark:text-slate-300 text-gray-600 w-max"
 	>
 		<p class="select-none truncate w-min">{{ title }}</p>
 
