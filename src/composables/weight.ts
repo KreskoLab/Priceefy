@@ -4,7 +4,7 @@ export const useHandleWeight = (weight: number, unit: string) => {
 			return `${weight} кг`
 
 		case 'ml':
-			return `${weight / 1000} л`
+			return String(weight).length === 4 ? `${weight / 1000}л` : `${weight}мл`
 
 		case 'g':
 			return `${weight} г`
