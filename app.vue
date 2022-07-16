@@ -1,10 +1,5 @@
-<script
-	setup
-	lang="ts"
->
-onMounted(async () => {
-	await logIn()
-})
+<script setup lang="ts">
+await logIn()
 
 const showBottomSheet = useBottomSheet()
 
