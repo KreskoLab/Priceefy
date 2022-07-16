@@ -1,3 +1,16 @@
+<script setup lang="ts">
+const active = ref<boolean>(false)
+const dropdown = ref<HTMLElement | null>(null)
+
+onMounted(() => onClickOutside(dropdown, () => (active.value = false)))
+
+function open() {
+	active.value = true
+}
+
+defineExpose({ open })
+</script>
+
 <template>
 	<div class="relative w-max">
 		<div
@@ -16,19 +29,3 @@
 		</ul>
 	</div>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-const active = ref<boolean>(false)
-const dropdown = ref<HTMLElement | null>(null)
-
-onMounted(() => onClickOutside(dropdown, () => (active.value = false)))
-
-function open() {
-	active.value = true
-}
-
-defineExpose({ open })
-</script>
