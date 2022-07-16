@@ -52,7 +52,7 @@ watch(
 
 			<div class="hidden sm:flex sm:grow sm:max-w-xs md:max-w-sm 2xl:max-w-xl">
 				<ClientOnly>
-					<AppSearchInput />
+					<SearchInput />
 				</ClientOnly>
 			</div>
 
@@ -77,7 +77,7 @@ watch(
 						v-if="showMobileSearch"
 						class="absolute z-50 top-[60px] left-0 dark:bg-slate-900/70 bg-white/70 border-b border-gray-200 dark:border-slate-800 w-full px-3 py-4"
 					>
-						<AppSearchInput />
+						<SearchInput />
 					</div>
 				</div>
 
