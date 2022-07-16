@@ -1,8 +1,4 @@
-<script
-	setup
-	lang="ts"
->
-import type { ProductsAndCount } from '~/models/products-count'
+<script setup lang="ts">
 import type { Store } from '~/models/store'
 import type { Category } from '~/models/category'
 import { Sort, SortVal, SORT_TITLES } from '~/models/sort'
@@ -54,9 +50,7 @@ watch(
 	[store, category],
 	() => {
 		if (currentPage.value === '1') updateParamsObject()
-		else {
-			if (pageLoaded.value) currentPage.value = '1'
-		}
+		else if (pageLoaded.value) currentPage.value = '1'
 	},
 	{ deep: true }
 )
