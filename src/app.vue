@@ -21,7 +21,8 @@ watch(showBottomSheet, val => {
 					v-if="
 						$route.name !== 'callback' &&
 						$route.name !== 'product-product' &&
-						$route.name !== 'favorites'
+						$route.name !== 'favorites' &&
+						$route.name !== 'search'
 					"
 				/>
 			</div>
