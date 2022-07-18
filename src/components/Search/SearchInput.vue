@@ -3,21 +3,26 @@ import { Product } from '~/models/product'
 
 const { slug } = useCityCookie()
 const router = useRouter()
+const config = useRuntimeConfig()
 
 const search = ref<HTMLElement | null>(null)
-const query = ref<string>('')
 const products = ref<Product[]>([])
-
-onClickOutside(search, () => clear())
+const query = ref<string>('')
+const loading = ref<boolean>(false)
+const active = ref<boolean>(false)
 
 watch(query, async () => {
 	await searchProducts()
 })
 
 async function searchProducts() {
-	products.value = await $fetch<Product[]>(
-		`http://localhost:8000/products/search?q=${query.value}&city=${slug}`
-	).then(res => res.splice(0, 10))
+	loading.value = true
+
+	products.value = await $fetch<Product[]>(`/products/search?q=${query.value}&city=${slug}`, {
+		baseURL: config.baseAPI,
+	}).then(res => res.splice(0, 10))
+
+	loading.value = false
 }
 
 function eventHandler(event: KeyboardEvent) {
@@ -27,13 +32,7 @@ function eventHandler(event: KeyboardEvent) {
 
 	if (event.key === 'Enter') {
 		router.push(`/search?q=${query.value}`)
-		clear()
 	}
-}
-
-function clear() {
-	query.value = ''
-	products.value = []
 }
 
 onMounted(() => {
@@ -47,6 +46,8 @@ onUnmounted(() => window.removeEventListener('keyup', eventHandler))
 	<div class="relative w-full">
 		<div class="relative w-full">
 			<input
+				@focus="active = true"
+				@focusout="active = false"
 				v-model="query"
 				placeholder="Пошук"
 				ref="search"
@@ -75,13 +76,14 @@ onUnmounted(() => window.removeEventListener('keyup', eventHandler))
 		</div>
 
 		<SearchResults
-			v-if="products.length"
+			v-if="active && query.length"
 			:results="products"
+			:loading="loading"
 		/>
 
 		<div
-			v-if="products.length"
-			class="overlay w-full h-screen !top-16"
+			v-if="active && query.length"
+			class="overlay w-full h-screen !top-32 lg:!top-16"
 		/>
 	</div>
 </template>
