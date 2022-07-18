@@ -1,27 +1,4 @@
-<template>
-	<aside
-		class="block h-full overflow-y-auto lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 lg:invisible scrollbox"
-	>
-		<div class="w-full px-3 lg:w-72 scrollbox-content">
-			<AppSidebarBlock
-				v-model="store"
-				title="Магазини"
-				:items="piniaStore.availableStores"
-			/>
-
-			<AppSidebarBlock
-				v-model="category"
-				title="Категорії"
-				:items="categories"
-			/>
-		</div>
-	</aside>
-</template>
-
-<script
-	setup
-	lang="ts"
->
+<script setup lang="ts">
 import type { Category } from '~/models/category'
 import type { Store } from '~/models/store'
 import { useStore } from '~/stores/main'
@@ -57,35 +34,22 @@ function findItemBySlug(arr: (Store | Category)[], slug: string): Store | Catego
 }
 </script>
 
-<style scoped>
-::-webkit-scrollbar {
-	width: 5px;
-	background: transparent;
-}
+<template>
+	<aside
+		class="h-full overflow-y-hidden hover:overflow-y-scroll lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-md"
+	>
+		<div class="w-full px-3 lg:w-72 lg:px-6">
+			<AppSidebarBlock
+				v-model="store"
+				title="Магазини"
+				:items="piniaStore.availableStores"
+			/>
 
-/* Track */
-::-webkit-scrollbar-track {
-	background: #0f172a;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: #94a3b8;
-	border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: #94a3b8;
-}
-
-.scrollbox {
-	transition: visibility 0.1s;
-}
-
-.scrollbox-content,
-.scrollbox:hover,
-.scrollbox:focus {
-	visibility: visible;
-}
-</style>
+			<AppSidebarBlock
+				v-model="category"
+				title="Категорії"
+				:items="categories"
+			/>
+		</div>
+	</aside>
+</template>
