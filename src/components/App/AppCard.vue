@@ -8,16 +8,9 @@ const props = defineProps<{
 const normalWeight = computed<string>(() =>
 	useHandleWeight(props.product.weight, props.product.unit)
 )
-const isDiscount = computed<boolean>(() => props.product.prices.some(price => price.discount))
 
-const normalPrice = computed(() => {
-	const prices = props.product.prices.map(item => item.price)
-	if (prices.length > 1) {
-		return `₴ ${Math.min(...prices).toFixed(2)} - ₴ ${Math.max(...prices).toFixed(2)}`
-	} else {
-		return `₴ ${prices[0].toFixed(2)}`
-	}
-})
+const isDiscount = computed<boolean>(() => props.product.prices.some(price => price.discount))
+const normalPrice = computed(() => useHandlePrice(props.product.prices))
 
 const normalName = computed(() => {
 	if (props.product.unit === 'ml') {
@@ -32,7 +25,7 @@ const normalName = computed(() => {
 
 <template>
 	<article
-		class="flex flex-col space-y-12 min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-transparent transition duration-200 ease-in-out pt-4 pb-2 px-4"
+		class="flex flex-col space-y-12 min-w-[320px] dark:bg-slate-800 bg-white outline outline-2 dark:outline-slate-700 outline-gray-200 border-4 border-transparent rounded-md hover:border-teal-400 hover:outline-0 transition duration-200 ease-in-out pt-4 pb-2 px-4"
 	>
 		<div class="flex space-x-6">
 			<div
