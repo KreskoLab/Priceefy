@@ -36,16 +36,16 @@ function findItemBySlug(arr: (Store | Category)[], slug: string): Store | Catego
 
 <template>
 	<aside
-		class="h-full overflow-y-hidden hover:overflow-y-scroll lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-md"
+		class="h-full lg:overflow-y-hidden lg:hover:overflow-y-scroll lg:fixed lg:h-[calc(100%-5rem)] lg:top-20 lg:ml-6 lg:pb-10 scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-md"
 	>
 		<div class="w-full px-3 lg:w-72 lg:px-6">
-			<AppSidebarBlock
+			<SidebarBlock
 				v-model="store"
 				title="Магазини"
 				:items="piniaStore.availableStores"
 			/>
 
-			<AppSidebarBlock
+			<SidebarBlock
 				v-model="category"
 				title="Категорії"
 				:items="categories"

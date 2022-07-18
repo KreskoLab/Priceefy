@@ -1,3 +1,19 @@
+<script setup lang="ts">
+const showBottomSheet = useBottomSheet()
+const show = ref<boolean>(true)
+
+const sheetBody = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+	onClickOutside(sheetBody, () => (show.value = false))
+})
+
+function hideBottomSheet() {
+	showBottomSheet.value = false
+	show.value = true
+}
+</script>
+
 <template>
 	<div
 		v-if="showBottomSheet"
@@ -18,27 +34,8 @@
 			>
 				<div class="h-[4px] w-24 mx-auto rounded-md bg-slate-200" />
 
-				<AppSidebar />
+				<TheSidebar />
 			</div>
 		</Transition>
 	</div>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-const showBottomSheet = useBottomSheet()
-const show = ref<boolean>(true)
-
-const sheetBody = ref<HTMLElement | null>(null)
-
-onMounted(() => {
-	onClickOutside(sheetBody, () => (show.value = false))
-})
-
-function hideBottomSheet() {
-	showBottomSheet.value = false
-	show.value = true
-}
-</script>

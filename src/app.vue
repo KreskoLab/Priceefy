@@ -24,7 +24,7 @@ watch(showBottomSheet, val => {
 
 		<div class="container mx-auto">
 			<div class="hidden lg:block">
-				<AppSidebar
+				<TheSidebar
 					v-if="
 						$route.name !== 'callback' &&
 						$route.name !== 'product-product' &&
