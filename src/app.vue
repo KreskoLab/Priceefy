@@ -1,4 +1,11 @@
 <script setup lang="ts">
+useHead({
+	bodyAttrs: {
+		class:
+			'scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-md',
+	},
+})
+
 await logIn()
 
 const showBottomSheet = useBottomSheet()
@@ -27,7 +34,7 @@ watch(showBottomSheet, val => {
 				/>
 			</div>
 
-			<main class="pt-[4rem] min-w-[320px] lg:px-8 lg:pt-24">
+			<main class="pt-[4rem] min-w-[320px] lg:px-10 lg:pt-24">
 				<NuxtPage />
 			</main>
 		</div>
