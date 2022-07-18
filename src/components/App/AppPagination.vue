@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-row justify-center w-full h-full">
 		<button
-			class="btn_arrow rounded-l-3xl"
+			class="rounded-l-3xl"
 			aria-label="Previous page"
 			:disabled="page === 1"
 			@click="prev()"
@@ -18,7 +18,7 @@
 		</div>
 
 		<button
-			class="btn_arrow rounded-r-3xl"
+			class="rounded-r-3xl"
 			aria-label="Next page"
 			:disabled="page >= pages"
 			@click="next()"
@@ -68,7 +68,7 @@ function next() {
 </script>
 
 <style scoped>
-.btn_arrow {
+button {
 	@apply outline-none
   dark:bg-slate-800 bg-white
   border-2 border-transparent dark:border-slate-700 border-gray-200
@@ -78,7 +78,10 @@ function next() {
   dark:text-slate-300 text-gray-500
   dark:hover:bg-slate-400/20
 	hover:bg-gray-100
-  active:border-2 active:border-teal-400
+  active:border-teal-400
+	focus:border-teal-400
+	dark:active:border-teal-400
+	dark:focus:border-teal-400
   dark:disabled:text-slate-600
   dark:disabled:hover:bg-slate-800
   dark:disabled:active:border-slate-700
