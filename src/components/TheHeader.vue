@@ -22,8 +22,6 @@ const city = computed({
 
 const { data: cities } = await useFetch<SelectOption[]>('/api/cities')
 
-const defaultOption = cities.value.find(item => item.value.slug === city.value.slug)
-
 watch(
 	() => piniaStore.showDropdown,
 	val => {
@@ -46,7 +44,6 @@ watch(
 				<AppSelect
 					v-model="city"
 					:options="cities"
-					:default-option="defaultOption"
 				/>
 			</div>
 
