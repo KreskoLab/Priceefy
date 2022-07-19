@@ -45,7 +45,6 @@ export default defineNuxtConfig({
 
 	publicRuntimeConfig: {
 		baseAPI: process.env.API_URL,
-		baseImages: process.env.IMAGE_URL,
 		domain: process.env.DOMAIN,
 	},
 

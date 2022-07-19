@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import type { SelectOption } from '~/models/select-option'
+
+const props = defineProps<{
+	options: SelectOption[]
+	modelValue: SelectOption['value']
+}>()
+
+const emit = defineEmits<{
+	(e: 'update:modelValue', value: SelectOption['value']): void
+}>()
+
+const active = ref<boolean>(false)
+const dropdown = ref<HTMLElement | null>(null)
+
+const selected = reactive({ title: '', value: {} })
+
+onMounted(() => onClickOutside(dropdown, () => (active.value = false)))
+
+const select = (option: SelectOption) => {
+	selected.title = option.title
+	selected.value = option.value
+
+	active.value = false
+	emit('update:modelValue', option.value)
+}
+
+if (props.modelValue) {
+	const option = props.options.find(
+		item => JSON.stringify(item.value) == JSON.stringify(props.modelValue)
+	)
+
+	if (option) select(option)
+	else select(props.options[0])
+} else {
+	select(props.options[0])
+}
+</script>
+
 <template>
 	<div class="flex relative w-max">
 		<button
@@ -24,42 +63,3 @@
 		</ul>
 	</div>
 </template>
-
-<script
-	setup
-	lang="ts"
->
-import { City } from '~/models/city'
-import { SelectOption } from '~/models/select-option'
-
-const props = defineProps<{
-	options: SelectOption[]
-	defaultOption: SelectOption
-	modelValue: City
-}>()
-
-const emit = defineEmits<{
-	(e: 'update:modelValue', option: object): void
-}>()
-
-const active = ref<boolean>(false)
-const dropdown = ref<HTMLElement | null>(null)
-
-const selected = reactive({ title: '', value: {} })
-
-onMounted(() => onClickOutside(dropdown, () => (active.value = false)))
-
-const select = (option: SelectOption) => {
-	selected.title = option.title
-	selected.value = option.value
-
-	active.value = false
-	emit('update:modelValue', option.value)
-}
-
-if (props.defaultOption && Object.keys(props.defaultOption).length > 0) {
-	select(props.defaultOption)
-} else {
-	select(props.options[0])
-}
-</script>
