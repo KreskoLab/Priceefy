@@ -10,6 +10,19 @@ const userStore = useUser()
 const route = useRoute()
 const router = useRouter()
 
+const [{ data: product }, { data: pricesSeries }] = await Promise.all([
+	useAsyncData<Product>('product', () =>
+		$fetch(`/api/product/${route.params.product}`, {
+			params: { city: city.value.slug },
+		})
+	),
+	useAsyncData<Pick<Price, 'price' | 'store' | 'created_at'>[]>('prices', () =>
+		$fetch(`/api/product/${route.params.product}/prices`, {
+			params: { city: city.value.slug, period: 'week' },
+		})
+	),
+])
+
 const queryObject = useQueryObject()
 piniaStore.setCity(useCityCookie())
 
@@ -20,18 +33,6 @@ const city = computed(() => piniaStore.city)
 const isFavorite = computed<boolean>(() => {
 	return userStore.value.loggedIn && userStore.value.user.favorites.includes(product.value._id)
 })
-
-const { data: product } = await useFetch<Product>(`/api/product/${route.params.product}`, {
-	params: { city: city.value.slug },
-})
-
-const { data: pricesSeries } = await useFetch<Pick<Price, 'price' | 'store' | 'created_at'>[]>(
-	`/api/product/${route.params.product}/prices`,
-	{
-		params: { city: city.value.slug, period: 'week' },
-		initialCache: false,
-	}
-)
 
 const information = computed<Badge[]>(() => {
 	const items = []
