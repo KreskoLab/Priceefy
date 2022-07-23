@@ -13,15 +13,21 @@ const router = useRouter()
 const city = computed(() => piniaStore.city)
 
 const [{ data: product }, { data: pricesSeries }] = await Promise.all([
-	useAsyncData<Product>('product', () =>
-		$fetch(`/api/product/${route.params.product}`, {
-			params: { city: city.value.slug },
-		})
+	useAsyncData<Product>(
+		'product',
+		() =>
+			$fetch(`/api/product/${route.params.product}`, {
+				params: { city: city.value.slug },
+			}),
+		{ initialCache: false }
 	),
-	useAsyncData<Pick<Price, 'price' | 'store' | 'created_at'>[]>('prices', () =>
-		$fetch(`/api/product/${route.params.product}/prices`, {
-			params: { city: city.value.slug, period: 'week' },
-		})
+	useAsyncData<Pick<Price, 'price' | 'store' | 'created_at'>[]>(
+		'prices',
+		() =>
+			$fetch(`/api/product/${route.params.product}/prices`, {
+				params: { city: city.value.slug, period: 'week' },
+			}),
+		{ initialCache: false }
 	),
 ])
 
@@ -182,7 +188,7 @@ function close() {
 						<div class="flex items-center justify-between w-full">
 							<h3 class="uppercase tracking-wide">Ціни</h3>
 							<IconMdiChartAreaspline
-								v-if="pricesSeries.length"
+								v-if="pricesSeries && pricesSeries.length"
 								@click="showChart = !showChart"
 								class="cursor-pointer"
 							/>
@@ -191,7 +197,7 @@ function close() {
 
 					<div
 						class="bg-gray-100 dark:bg-slate-700/90 rounded-md"
-						v-if="showChart && pricesSeries.length"
+						v-if="showChart && pricesSeries && pricesSeries.length"
 					>
 						<ProductPriceChart
 							chart-id="prices"
