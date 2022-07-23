@@ -8,9 +8,7 @@ const userStore = useUser()
 const piniaStore = useStore()
 const config = useRuntimeConfig()
 
-const logout = async () => {
-	await logOut()
-}
+const { data: cities } = await useAsyncData<SelectOption[]>('cities', () => $fetch('/api/cities'))
 
 const dropdown = ref<InstanceType<typeof Dropdown>>()
 const showMobileSearch = useState<boolean>('mobileSearch', () => false)
@@ -19,8 +17,6 @@ const city = computed({
 	get: () => piniaStore.city,
 	set: (value: City) => piniaStore.setCity(value),
 })
-
-const { data: cities } = await useFetch<SelectOption[]>('/api/cities')
 
 watch(
 	() => piniaStore.showDropdown,
@@ -31,6 +27,10 @@ watch(
 		}
 	}
 )
+
+const logout = async () => {
+	await logOut()
+}
 </script>
 
 <template>
