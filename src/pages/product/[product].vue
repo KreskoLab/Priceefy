@@ -10,6 +10,8 @@ const userStore = useUser()
 const route = useRoute()
 const router = useRouter()
 
+const city = computed(() => piniaStore.city)
+
 const [{ data: product }, { data: pricesSeries }] = await Promise.all([
 	useAsyncData<Product>('product', () =>
 		$fetch(`/api/product/${route.params.product}`, {
@@ -27,8 +29,6 @@ const queryObject = useQueryObject()
 piniaStore.setCity(useCityCookie())
 
 const showChart = ref<boolean>(false)
-
-const city = computed(() => piniaStore.city)
 
 const isFavorite = computed<boolean>(() => {
 	return userStore.value.loggedIn && userStore.value.user.favorites.includes(product.value._id)
