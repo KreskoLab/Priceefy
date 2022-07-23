@@ -11,6 +11,22 @@ const query = ref<string>('')
 const loading = ref<boolean>(false)
 const active = ref<boolean>(false)
 
+let timeout = null
+
+const debounceInput = computed({
+	get() {
+		return query.value
+	},
+
+	set(newValue: string) {
+		if (timeout) clearTimeout(timeout)
+
+		timeout = setTimeout(() => {
+			query.value = newValue
+		}, 500)
+	},
+})
+
 watch(query, async () => {
 	await searchProducts()
 })
@@ -20,6 +36,7 @@ async function searchProducts() {
 
 	products.value = await $fetch<Product[]>(`/products/search?q=${query.value}&city=${slug}`, {
 		baseURL: config.baseAPI,
+		retry: false,
 	}).then(res => res.splice(0, 10))
 
 	loading.value = false
@@ -48,7 +65,7 @@ onUnmounted(() => window.removeEventListener('keyup', eventHandler))
 			<input
 				@focus="active = true"
 				@focusout="active = false"
-				v-model="query"
+				v-model="debounceInput"
 				placeholder="Пошук"
 				ref="search"
 				class="appearance-none outline-none rounded-md dark:bg-slate-700/70 bg-gray-200/70 w-full h-10 px-10 focus:ring-2 dark:focus:ring-slate-700/50 focus:ring-gray-200/50 transition duration-200 ease-in-out dark:text-slate-300 text-gray-800 dark:caret-slate-50"
@@ -83,7 +100,7 @@ onUnmounted(() => window.removeEventListener('keyup', eventHandler))
 
 		<div
 			v-if="active && query.length"
-			class="overlay w-full h-screen !top-32 lg:!top-16"
+			class="overlay w-full h-screen !top-32 md:!top-16"
 		/>
 	</div>
 </template>
