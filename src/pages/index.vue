@@ -4,7 +4,7 @@ import type { Category } from '~/models/category'
 import { Sort, SortVal, SORT_TITLES } from '~/models/sort'
 import { QueryObject } from '~/models/query-object'
 import { useStore } from '~/stores/main'
-import { ProductResponse } from '~~/interfaces'
+import { ProductResponse } from '~/interfaces'
 
 const piniaStore = useStore()
 const router = useRouter()
@@ -92,7 +92,7 @@ function updateParamsObject(): void {
 		</Head>
 
 		<div class="mb-8">
-			<TheFiltersBar />
+			<FiltersBar />
 
 			<AppLevel
 				v-if="!pending"
