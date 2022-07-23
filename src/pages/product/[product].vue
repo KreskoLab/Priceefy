@@ -182,6 +182,7 @@ function close() {
 						<div class="flex items-center justify-between w-full">
 							<h3 class="uppercase tracking-wide">Ціни</h3>
 							<IconMdiChartAreaspline
+								v-if="pricesSeries.length"
 								@click="showChart = !showChart"
 								class="cursor-pointer"
 							/>
@@ -190,7 +191,7 @@ function close() {
 
 					<div
 						class="bg-gray-100 dark:bg-slate-700/90 rounded-md"
-						v-if="showChart"
+						v-if="showChart && pricesSeries.length"
 					>
 						<ProductPriceChart
 							chart-id="prices"
