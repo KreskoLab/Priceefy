@@ -40,7 +40,7 @@ export default defineNuxtConfig({
 	},
 
 	image: {
-		domains: ['zakaz.ua', 'silpo.ua'],
+		domains: ['img2.zakaz.ua', 'img3.zakaz.ua', 'content.silpo.ua'],
 	},
 
 	publicRuntimeConfig: {
