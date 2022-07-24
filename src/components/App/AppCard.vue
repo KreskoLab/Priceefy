@@ -31,14 +31,14 @@ const normalName = computed(() => {
 			<div
 				class="flex justify-center items-center shrink-0 w-24 h-24 dark:bg-slate-700/90 rounded-md"
 			>
-				<nuxt-picture
+				<nuxt-img
 					:src="product.image"
 					:alt="product.name"
-					format="webp"
-					width="72"
-					height="72"
 					quality="80"
 					loading="lazy"
+					width="128"
+					height="128"
+					format="webp"
 				/>
 			</div>
 
