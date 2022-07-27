@@ -5,50 +5,61 @@ const { slug } = useCityCookie()
 const router = useRouter()
 const config = useRuntimeConfig()
 
-const search = ref<HTMLElement | null>(null)
+const input = ref<HTMLElement | null>(null)
+const results = ref<HTMLElement | null>(null)
+
 const products = ref<Product[]>([])
-const query = ref<string>('')
-const loading = ref<boolean>(false)
-const active = ref<boolean>(false)
+
+const search = reactive({
+	query: '',
+	loading: false,
+	active: false,
+})
 
 let timeout = null
 
 const debounceInput = computed({
 	get() {
-		return query.value
+		return search.query
 	},
 
 	set(newValue: string) {
 		if (timeout) clearTimeout(timeout)
 
 		timeout = setTimeout(() => {
-			query.value = newValue
+			search.query = newValue
 		}, 500)
 	},
 })
 
-watch(query, async () => {
-	await searchProducts()
-})
+watch(
+	() => search.query,
+	async () => await searchProducts()
+)
+watch(
+	() => router,
+	() => (search.active = false),
+	{ deep: true }
+)
 
 async function searchProducts() {
-	loading.value = true
+	search.loading = true
 
-	products.value = await $fetch<Product[]>(`/products/search?q=${query.value}&city=${slug}`, {
+	products.value = await $fetch<Product[]>(`/products/search?q=${search.query}&city=${slug}`, {
 		baseURL: config.baseAPI,
 		retry: false,
 	}).then(res => res.splice(0, 10))
 
-	loading.value = false
+	search.loading = false
 }
 
 function eventHandler(event: KeyboardEvent) {
-	if (event.key === '/') search.value.focus()
+	if (event.key === '/') input.value.focus()
 
-	if (event.key === 'Escape') search.value.blur()
+	if (event.key === 'Escape') input.value.blur()
 
 	if (event.key === 'Enter') {
-		router.push(`/search?q=${query.value}`)
+		router.push(`/search?q=${search.query}`)
 	}
 }
 
@@ -57,17 +68,17 @@ onMounted(() => {
 })
 
 onUnmounted(() => window.removeEventListener('keyup', eventHandler))
+onClickOutside(results, () => (search.active = false))
 </script>
 
 <template>
 	<div class="relative w-full">
 		<div class="relative w-full">
 			<input
-				@focus="active = true"
-				@focusout="active = false"
+				@focus="search.active = true"
 				v-model="debounceInput"
 				placeholder="Пошук"
-				ref="search"
+				ref="input"
 				class="appearance-none outline-none rounded-md dark:bg-slate-700/70 bg-gray-200/70 w-full h-10 px-10 focus:ring-2 dark:focus:ring-slate-700/50 focus:ring-gray-200/50 transition duration-200 ease-in-out dark:text-slate-300 text-gray-800 dark:caret-slate-50"
 			/>
 
@@ -93,13 +104,14 @@ onUnmounted(() => window.removeEventListener('keyup', eventHandler))
 		</div>
 
 		<SearchResults
-			v-if="active && query.length"
+			ref="results"
+			v-if="search.active && search.query.length"
 			:results="products"
-			:loading="loading"
+			:loading="search.loading"
 		/>
 
 		<div
-			v-if="active && query.length"
+			v-if="search.active && search.query.length"
 			class="overlay w-full h-screen !top-32 md:!top-16"
 		/>
 	</div>
