@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/src/assets/logo.svg" width="130" alt="Logo for T3" />
+  <img src="/src/assets/logo.svg" width="130" alt="logo for priceefy" />
 </p>
 
 <div align="center">
@@ -24,6 +24,7 @@
 * [Nuxt/tailwindcss](https://github.com/nuxt-community/tailwindcss-module)
 * [Nuxt/image](https://image.nuxtjs.org/)
 * [Pinia](https://pinia.vuejs.org/)
+* [Chart.js](https://www.chartjs.org/)
 
 🖥 Backend:
 * [Nest.js](https://nestjs.com/)
