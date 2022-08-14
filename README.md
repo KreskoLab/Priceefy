@@ -30,7 +30,7 @@
 * [Nest.js](https://nestjs.com/)
 * MongoDB
 
-[👀 backend repository](https://github.com/KreskoLab/baloo-back)
+[👀 backend repository](https://github.com/KreskoLab/Priceefy-backend)
 
 ## ⚙️ Setup
 ```
